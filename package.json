@@ -1,0 +1,52 @@
+{
+    "name": "mb_client",
+    "main": "babel.config.js",
+    "version": "1.0.0",
+    "scripts": {
+        "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build",
+        "lint": "vue-cli-service lint"
+    },
+    "dependencies": {
+        "@vue/cli-upgrade": "^3.12.1",
+        "axios": "^0.19.2",
+        "bootstrap-vue": "^2.4.1",
+        "express": "^4.17.1",
+        "html-loader": "^0.5.5",
+        "lodash": "^4.17.15",
+        "markdown-it-footnote": "^3.0.2",
+        "markdown-it-vue": "^1.0.11",
+        "markdown-loader": "^5.1.0",
+        "marked": "^0.7.0",
+        "moment": "^2.24.0",
+        "path": "^0.12.7",
+        "vue": "^2.6.11",
+        "vue-awesome": "^3.5.4",
+        "vue-axios": "^2.1.5",
+        "vue-json-excel": "^0.2.98",
+        "vue-router": "^3.1.6",
+        "vuex": "^3.1.2"
+    },
+    "devDependencies": {
+        "@babel/plugin-proposal-optional-chaining": "^7.8.3",
+        "@vue/cli-plugin-babel": "^4.2.3",
+        "@vue/cli-plugin-eslint": "^4.2.3",
+        "@vue/cli-service": "^4.2.3",
+        "@vue/eslint-config-prettier": "^6.0.0",
+        "babel-eslint": "^10.1.0",
+        "babel-plugin-transform-remove-console": "^6.9.4",
+        "babel-preset-env": "^1.7.0",
+        "eslint": "^6.7.2",
+        "eslint-plugin-prettier": "^3.1.1",
+        "eslint-plugin-vue": "^6.1.2",
+        "jshint": "^2.11.0",
+        "mocha": "^6.2.2",
+        "prettier": "^1.19.1",
+        "vue-template-compiler": "^2.6.11"
+    },
+    "jshintConfig": {
+        "esversion": 9,
+        "asi": true,
+        "debug": true
+    }
+}
