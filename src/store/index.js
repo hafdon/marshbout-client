@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Vue from 'vue'
 import Vuex from 'vuex'
 
@@ -9,9 +10,9 @@ export default new Vuex.Store({
         dirty: false,
     },
     getters: {
-        // eslint-disable-next-line no-unused-vars
         controlpressed(state) {
-            return state.controlpressed
+            // return state.controlpressed
+            return false
         },
         dirty(state) {
             return state.dirty
@@ -19,9 +20,17 @@ export default new Vuex.Store({
         clean(state) {
             return !state.dirty
         },
-        // eslint-disable-next-line no-unused-vars
+
         compiledMarkdown: state => html => {
             return this.$marked(html, { sanitize: true })
+        },
+        show: state => element => {
+            if (element.name === 'z-table-random-btn') {
+                return true
+            }
+        },
+        getRandomEl: state => arr => {
+            return arr[Math.floor(Math.random() * arr.length)]
         },
     },
     mutations: {

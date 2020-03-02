@@ -1,16 +1,20 @@
 <template>
     <b-form @submit.stop.prevent="onSubmit" @change.stop.prevent="onChange">
         <slot></slot>
-        <div>{{formAddons}}</div>
+        <div>{{ formAddons }}</div>
         <div class="text-right mb-1">
             <b-form-checkbox
                 v-for="(c, index) in controls.form_checkbox"
                 :key="`checkbox_${index}`"
                 v-model="form[c.label]"
-            >{{ c.label }}</b-form-checkbox>
+                >{{ c.label }}</b-form-checkbox
+            >
         </div>
 
-        <b-form-group v-for="(c, index) in controls.form_tags" :key="`tags_${index}`">
+        <b-form-group
+            v-for="(c, index) in controls.form_tags"
+            :key="`tags_${index}`"
+        >
             <!-- <div>
                 <label :for="`form_tag_${index}`" class="float-left">{{
                     c.label
@@ -27,26 +31,47 @@
             ></b-form-tags>
         </b-form-group>
 
-        <b-form-group v-for="(c, index) in controls.form_input" :key="`input_${index}`">
+        <b-form-group
+            v-for="(c, index) in controls.form_input"
+            :key="`input_${index}`"
+        >
             <label class="float-left">{{ c.label }}</label>
-            <b-form-input :type="c.type" v-model="form[c.label]" :rows="c.rows"></b-form-input>
+            <b-form-input
+                :type="c.type"
+                v-model="form[c.label]"
+                :rows="c.rows"
+            ></b-form-input>
         </b-form-group>
 
-        <b-form-group v-for="(c, index) in controls.form_textarea" :key="`textarea_${index}`">
+        <b-form-group
+            v-for="(c, index) in controls.form_textarea"
+            :key="`textarea_${index}`"
+        >
             <label class="float-left">{{ c.label }}</label>
-            <b-form-textarea v-model="form[c.label]" :rows="c.rows"></b-form-textarea>
+            <b-form-textarea
+                v-model="form[c.label]"
+                :rows="c.rows"
+            ></b-form-textarea>
         </b-form-group>
 
         <span v-if="id" class="float-left">
             <b-button @click="onCancel" variant="outline-dark">Cancel</b-button>
         </span>
         <span v-if="id" class="float-right">
-            <b-button type="submit" variant="primary" class="mr-2">Save</b-button>
-            <b-button @click="onRemove" variant="outline-danger">Remove</b-button>
+            <b-button type="submit" variant="primary" class="mr-2"
+                >Save</b-button
+            >
+            <b-button @click="onRemove" variant="outline-danger"
+                >Remove</b-button
+            >
         </span>
         <span v-if="!id" class="float-right">
-            <b-button type="submit" variant="primary" class="mr-2">Submit</b-button>
-            <b-button @click="onCancel" variant="outline-danger">Cancel</b-button>
+            <b-button type="submit" variant="primary" class="mr-2"
+                >Submit</b-button
+            >
+            <b-button @click="onCancel" variant="outline-danger"
+                >Cancel</b-button
+            >
         </span>
     </b-form>
 </template>
@@ -109,17 +134,23 @@ export default {
 
                     // TODO: fix inability to actually change the "id" prop here?
                     if (this.dirty) {
+                        let results = false
                         {
-                            if (
-                                window.confirm(
-                                    'You have unsaved changes. Click "ok" to discard changes.'
-                                )
-                            ) {
+                            results = window.confirm(
+                                'You have unsaved changes. Click "ok zform" to discard changes.'
+                            )
+                            console.log({ results })
+                            if (results) {
+                                console.log({ makingthingsclean: results })
                                 this.makeClean()
                             }
                         }
                     }
+                    console.log(
+                        `about to test if this.clean is true, and it's ${this.clean}`
+                    )
                     if (this.clean) {
+                        console.log({ clean: this.clean, val })
                         if (val) {
                             this.getById(val)
                             this.makeClean()
@@ -160,6 +191,7 @@ export default {
         }
     },
     created() {
+        console.log('zform created', this.axios.url)
         this.clearForm()
     },
     mounted() {

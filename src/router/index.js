@@ -12,6 +12,13 @@ const routes = [
         component: Home,
     },
     {
+        path: '/blades',
+        name: 'Blades',
+        component: () =>
+            import(/* webpackChunkName: "prep" */ '../views/BladesView.vue'),
+        props: true,
+    },
+    {
         path: '/lexeme/:id?',
         name: 'Lexeme',
         component: () =>

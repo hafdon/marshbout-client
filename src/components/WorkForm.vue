@@ -1,39 +1,76 @@
 <template>
     <b-form @submit.stop.prevent="onSubmit" @change.stop.prevent="onChange">
         <b-form-group>
-            <b-form-checkbox class="float-right" v-model="form.attune">Attune</b-form-checkbox>
+            <b-form-checkbox class="float-right" v-model="form.attune"
+                >Attune</b-form-checkbox
+            >
         </b-form-group>
         <b-form-group>
             <label class="float-left" for="input-title">Title</label>
-            <b-form-textarea v-model="form.title" id="input-title" rows="2"></b-form-textarea>
+            <b-form-textarea
+                v-model="form.title"
+                id="input-title"
+                rows="2"
+            ></b-form-textarea>
         </b-form-group>
         <b-form-group>
-            <label class="float-left" for="input-contributor">Contributor</label>
-            <b-form-input v-model="form.contributor" id="input-contributor" type="text"></b-form-input>
+            <label class="float-left" for="input-contributor"
+                >Contributor</label
+            >
+            <b-form-input
+                v-model="form.contributor"
+                id="input-contributor"
+                type="text"
+            ></b-form-input>
         </b-form-group>
         <b-form-group>
-            <label class="float-left" for="input-description">Description</label>
-            <b-form-textarea rows="5" v-model="form.description" id="input-description" type="text"></b-form-textarea>
+            <label class="float-left" for="input-description"
+                >Description</label
+            >
+            <b-form-textarea
+                rows="5"
+                v-model="form.description"
+                id="input-description"
+                type="text"
+            ></b-form-textarea>
         </b-form-group>
         <b-form-group>
             <label class="float-left" for="input-contents">Contents</label>
-            <b-form-textarea rows="5" v-model="form.contents" id="input-contents" type="text"></b-form-textarea>
+            <b-form-textarea
+                rows="5"
+                v-model="form.contents"
+                id="input-contents"
+                type="text"
+            ></b-form-textarea>
         </b-form-group>
         <b-form-group>
             <label class="float-left" for="input-mechanics">Mechanics</label>
-            <b-form-textarea rows="3" v-model="form.mechanics" id="input-mechanics" type="text"></b-form-textarea>
+            <b-form-textarea
+                rows="3"
+                v-model="form.mechanics"
+                id="input-mechanics"
+                type="text"
+            ></b-form-textarea>
         </b-form-group>
 
         <span v-if="id" class="float-left">
             <b-button @click="onCancel" variant="outline-dark">Cancel</b-button>
         </span>
         <span v-if="id" class="float-right">
-            <b-button type="submit" variant="primary" class="mr-2">Save</b-button>
-            <b-button @click="onRemove" variant="outline-danger">Remove</b-button>
+            <b-button type="submit" variant="primary" class="mr-2"
+                >Save</b-button
+            >
+            <b-button @click="onRemove" variant="outline-danger"
+                >Remove</b-button
+            >
         </span>
         <span v-if="!id" class="float-right">
-            <b-button type="submit" variant="primary" class="mr-2">Submit</b-button>
-            <b-button @click="onCancel" variant="outline-danger">Cancel</b-button>
+            <b-button type="submit" variant="primary" class="mr-2"
+                >Submit</b-button
+            >
+            <b-button @click="onCancel" variant="outline-danger"
+                >Cancel</b-button
+            >
         </span>
     </b-form>
 </template>
@@ -72,7 +109,7 @@ export default {
                         {
                             if (
                                 window.confirm(
-                                    'You have unsaved changes. Click "ok" to discard changes.'
+                                    'You have unsaved changes. Click "ok work form" to discard changes.'
                                 )
                             ) {
                                 this.dirty = false

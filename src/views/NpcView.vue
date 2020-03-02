@@ -14,7 +14,7 @@
                             :controls="controls"
                             :form-addons="formAddons"
                         >
-                            <b-card no-body>
+                            <!-- <b-card no-body>
                                 <template v-slot:header>
                                     <span>
                                         <span class="float-left">Legendary Actions</span>
@@ -35,7 +35,7 @@
                                         :live-form="liveForm"
                                     ></NpcLegendaryActionForm>
                                 </b-card-body>
-                            </b-card>
+                            </b-card> -->
                         </ZForm>
                     </b-card-body>
                 </b-card>
@@ -46,15 +46,26 @@
                         <b-form-group class="m-0 p-0">
                             <b-form-input v-model="tableFilter"></b-form-input>
                         </b-form-group>
-                        <b-form-group class="m-0 p-0">
-                            <b-button block @click="selectRandom()">Random!</b-button>
+                        <b-form-group
+                            class="m-0 p-0"
+                            v-if="show({ name: 'z-table-random-btn' })"
+                        >
+                            <b-button block @click="$refs.ztable.selectRandom()"
+                                >Random!</b-button
+                            >
                         </b-form-group>
                         <b-card no-body class="m-0 p-0 text-left">
                             <!-- <template v-slot:header>Filters</template> -->
                             <b-card-body class="m-0 p-0">
-                                <Threebox :pressed.sync="filters.claimed">Claimed</Threebox>
-                                <Threebox :pressed.sync="filters.prep">Prep</Threebox>
-                                <Threebox :pressed.sync="filters.etools">Etools</Threebox>
+                                <Threebox :pressed.sync="filters.claimed"
+                                    >Claimed</Threebox
+                                >
+                                <Threebox :pressed.sync="filters.prep"
+                                    >Prep</Threebox
+                                >
+                                <Threebox :pressed.sync="filters.etools"
+                                    >Etools</Threebox
+                                >
                                 <b-form-tags
                                     separator=" ,;"
                                     no-add-on-enter
@@ -83,8 +94,8 @@
 </template>
 
 <script>
-import NpcLegendaryActionForm from '@/components/NpcLegendaryActionForm.vue'
-
+// import NpcLegendaryActionForm from '@/components/NpcLegendaryActionForm.vue'
+import { mapGetters } from 'vuex'
 export default {
     name: 'NpcView',
     props: {
@@ -200,7 +211,7 @@ export default {
         }
     },
     components: {
-        NpcLegendaryActionForm,
+        // NpcLegendaryActionForm,
     },
     created() {
         console.log('NpcView created')
@@ -209,6 +220,9 @@ export default {
         document.title = 'Npc'
     },
     computed: {
+        ...mapGetters({
+            show: 'show',
+        }),
         Url() {
             let { claimed, etools, prep, tags } = this.filters
 
@@ -245,9 +259,7 @@ export default {
         refreshList() {
             this.$refs.ztable.loadItems()
         },
-        selectRandom() {
-            this.$refs.ztable.selectRandom()
-        },
+
         booleanQuerySlug(val = null) {
             let slug = ''
             val = '' + val
