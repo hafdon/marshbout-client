@@ -59,8 +59,8 @@ export default {
             default: () => [],
         },
         fields: {
-            required: false,
-            default: () => [],
+            required: true,
+            type: Array,
         },
         axios: {
             required: true,
@@ -77,8 +77,8 @@ export default {
         items: {
             immediate: true,
             deep: true,
-            handler(val, old) {
-                console.log({ items: { val, old } })
+            handler(val) {
+                // console.log({ items: { val, old } })
                 this.filteredLength = val.length || 0
                 return
             },
@@ -86,8 +86,8 @@ export default {
         apiItems: {
             immediate: true,
             deep: true,
-            handler(val, old) {
-                console.log({ apiItems: { val, old } })
+            handler(val) {
+                // console.log({ apiItems: { val, old } })
                 this.filteredLength = val.length || 0
                 return
             },
@@ -95,8 +95,9 @@ export default {
         fields: {
             immediate: true,
             deep: true,
-            handler(val, old) {
-                console.log({ fields: { val, old } })
+            // eslint-disable-next-line no-unused-vars
+            handler(val) {
+                // console.log({ fields: { val, old } })
                 return
             },
         },

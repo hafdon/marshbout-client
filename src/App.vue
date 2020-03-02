@@ -26,11 +26,7 @@
                         ></GlobalResultsbar>
                     </b-nav-form>
 
-                    <b-nav-item-dropdown
-                        dropleft
-                        text="routes"
-                        variant="primary"
-                    >
+                    <b-nav-item-dropdown dropleft text="routes" variant="primary">
                         <template v-slot:button-content>
                             <b-button
                                 :variant="
@@ -38,28 +34,27 @@
                                         ? 'outline-danger'
                                         : 'outline-light'
                                 "
-                                >routes</b-button
-                            >
+                            >routes</b-button>
                         </template>
                         <b-dropdown-item to="/">
                             <span class="shortcut-key">H</span>ome
                         </b-dropdown-item>
-                        <b-dropdown-item to="/campaigndash">
-                            <span class="shortcut-key">D</span>ashboard
-                        </b-dropdown-item>
-                        <b-dropdown-item :to="{ name: 'Prep' }"
-                            >Prep</b-dropdown-item
-                        >
-                        <b-dropdown-item to="/recap">Recaps</b-dropdown-item>
-                        <b-dropdown-item to="/improvisation"
-                            >Improvisation</b-dropdown-item
-                        >
+                        <b-dropdown-item
+                            class="pl-4"
+                            to="/combat-tracker"
+                            v-html="keyHighlight('Combat Tracker', 'T')"
+                        ></b-dropdown-item>
+                        <b-dropdown-item :to="{ name: 'Prep' }">Prep</b-dropdown-item>
+                        <b-dropdown-item
+                            class="pl-4"
+                            to="/recap"
+                            v-html="keyHighlight('Recap', 'e')"
+                        ></b-dropdown-item>
+                        <b-dropdown-item to="/improvisation">Improvisation</b-dropdown-item>
                         <b-dropdown-item to="/work">
                             <span class="shortcut-key">W</span>orks
                         </b-dropdown-item>
-                        <b-dropdown-item to="/faction"
-                            >Factions</b-dropdown-item
-                        >
+                        <b-dropdown-item to="/faction">Factions</b-dropdown-item>
                         <b-dropdown-item to="/clock">Clocks</b-dropdown-item>
                         <b-dropdown-item to="/description">
                             D
@@ -70,18 +65,21 @@
                             to="/bible"
                             v-html="keyHighlight('Bible', 'B')"
                         ></b-dropdown-item>
-                        <b-dropdown-item to="/transcript"
-                            >Transcripts</b-dropdown-item
-                        >
-                        <b-dropdown-item to="/location"
-                            >Locations</b-dropdown-item
-                        >
-                        <b-dropdown-item to="/position"
-                            >Positions</b-dropdown-item
-                        >
+                        <b-dropdown-item to="/transcript">Transcripts</b-dropdown-item>
+                        <b-dropdown-item to="/location">Locations</b-dropdown-item>
+                        <b-dropdown-item
+                            class="pl-4"
+                            to="/position"
+                            v-html="keyHighlight('Position', 'o')"
+                        ></b-dropdown-item>
                         <b-dropdown-item to="/npc">
                             <span class="shortcut-key">N</span>PCs
                         </b-dropdown-item>
+                        <b-dropdown-item
+                            class="pl-4"
+                            to="/lexeme"
+                            v-html="keyHighlight('Lexeme', 'x')"
+                        ></b-dropdown-item>
                     </b-nav-item-dropdown>
                 </b-navbar-nav>
             </b-collapse>
@@ -174,36 +172,36 @@ export default {
                 this.controlUp()
             }
         },
+
+        handleControlPressed(key) {
+            let hash = {
+                t: '',
+                n: 'npc',
+                l: 'location',
+                f: 'faction',
+                c: 'clock',
+                d: 'description',
+                w: 'work',
+                b: 'bible',
+                p: 'prep',
+                e: 'recap',
+                x: 'lexeme',
+                o: 'position',
+            }
+            return hash[key.toLowerCase()] || null
+        },
         onKeypress({ key }) {
             try {
                 // eslint-disable-next-line no-console
                 console.log({ onKeypress: key })
 
                 if (this.controlpressed) {
-                    if (/h/i.exec(key) !== null) {
-                        this.pushRoute({ route: '/' })
-                    } else if (/d/i.exec(key) !== null) {
-                        this.pushRoute({ route: '/campaigndash' })
-                    } else if (/n/i.exec(key) !== null) {
-                        this.pushRoute({ route: '/npc' })
-                    } else if (/l/i.exec(key) !== null) {
-                        this.pushRoute({ route: '/location' })
-                    } else if (/f/i.exec(key) !== null) {
-                        this.pushRoute({ route: '/faction' })
-                    } else if (/c/i.exec(key) !== null) {
-                        this.pushRoute({ route: '/clock' })
-                    } else if (/e/i.exec(key) !== null) {
-                        this.pushRoute({ route: '/description' })
-                    } else if (/w/i.exec(key) !== null) {
-                        this.pushRoute({ route: '/work' })
-                    } else if (/b/i.exec(key) !== null) {
-                        this.pushRoute({ route: '/bible' })
-                    } else if (/s/i.exec(key) !== null) {
+                    if (/s/i.exec(key) !== null) {
                         this.setFocus('globalsearchbar')
-                    } else if (/p/i.exec(key) !== null) {
-                        this.pushRoute({ route: '/prep' })
-                    } else if (/r/i.exec(key) !== null) {
-                        this.pushRoute({ route: '/recap' })
+                    } else if (this.handleControlPressed(key) !== null) {
+                        this.pushRoute({
+                            route: '/' + this.handleControlPressed(key),
+                        })
                     }
                 }
             } catch (e) {

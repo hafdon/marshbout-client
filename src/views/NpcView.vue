@@ -12,6 +12,7 @@
                             :axios="{ url: 'npc' }"
                             :blank-form="form"
                             :controls="controls"
+                            :form-addons="formAddons"
                         >
                             <b-card no-body>
                                 <template v-slot:header>
@@ -29,7 +30,7 @@
                                 </template>
                                 <b-card-body v-if="show_legendary_body">
                                     <NpcLegendaryActionForm
-                                        @submit.stop.prevent="() => {}"
+                                        @submit.stop.prevent="onLegendaryActionSubmit()"
                                         class="text-left"
                                         :live-form="liveForm"
                                     ></NpcLegendaryActionForm>
@@ -122,6 +123,14 @@ export default {
                 return
             },
         },
+        formAddons: {
+            immediate: true,
+            deep: true,
+            handler(val) {
+                console.log({ npc_view_formaddons: val })
+                return
+            },
+        },
     },
     data() {
         return {
@@ -163,6 +172,11 @@ export default {
                     name: '',
                     description: '',
                     cost: null,
+                },
+            },
+            formAddons: {
+                etools_statblock: {
+                    legendary: [],
                 },
             },
             controls: {
@@ -247,6 +261,18 @@ export default {
 
             console.log({ slug })
             return slug
+        },
+        onLegendaryActionSubmit() {
+            this.formAddons.etools_statblock.legendary.push({
+                ...this.liveForm.legendary,
+            })
+            this.liveForm.legendary = {
+                name: '',
+                description: '',
+                cost: null,
+            }
+
+            console.log({ onlegedaryactionsubmit: this.form })
         },
     },
 }

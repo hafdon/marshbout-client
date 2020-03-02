@@ -11,6 +11,8 @@ import Popper from 'popper.js'
 import Threebox from '@/components/Threebox.vue'
 import ZForm from '@/components/ZForm.vue'
 import ZTable from '@/components/ZTable.vue'
+import ZView from '@/views/ZView.vue'
+import marked from 'marked'
 
 // see: https://github.com/twbs/bootstrap/issues/23590
 Popper.Defaults.modifiers.computeStyle.gpuAcceleration = !(
@@ -21,6 +23,7 @@ Vue.config.productionTip = false
 
 Vue.prototype.$axios = axios
 Vue.prototype.$moment = moment
+Vue.prototype.$marked = marked
 
 Vue.use(VueAxios, axios)
 Vue.use(BootstrapVue)
@@ -29,6 +32,7 @@ Vue.use(BootstrapVueIcons)
 Vue.component('Threebox', Threebox)
 Vue.component('ZForm', ZForm)
 Vue.component('ZTable', ZTable)
+Vue.component('ZView', ZView)
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'

@@ -1,6 +1,7 @@
 <template>
     <b-form @submit.stop.prevent="onSubmit" @change.stop.prevent="onChange">
         <slot></slot>
+        <div>{{formAddons}}</div>
         <div class="text-right mb-1">
             <b-form-checkbox
                 v-for="(c, index) in controls.form_checkbox"
@@ -65,6 +66,7 @@ export default {
             // url: String,
             // method: String,
             // data: Object,
+            default: () => ({ url: '', method: '', data: {} }),
         },
         blankForm: {
             required: true,
@@ -75,8 +77,26 @@ export default {
             type: Object,
             // form_textarea: Array,
         },
+        formAddons: {
+            type: Object,
+            required: false,
+        },
     },
     watch: {
+        axios: {
+            immediate: true,
+            deep: true,
+            handler() {
+                return
+            },
+        },
+        formAddons: {
+            immediate: true,
+            deep: true,
+            handler(val) {
+                console.log({ zform_formaddons: val })
+            },
+        },
         id: {
             immediate: true,
             // eslint-disable-next-line no-unused-vars
@@ -202,6 +222,10 @@ export default {
             this.makeClean()
         },
         async onRemove() {
+            let ask = window.confirm('Are you sure you want to remove this?')
+            if (!ask) {
+                return
+            }
             try {
                 await this.$axios.request({
                     method: 'delete',

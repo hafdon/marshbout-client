@@ -19,6 +19,10 @@ export default new Vuex.Store({
         clean(state) {
             return !state.dirty
         },
+        // eslint-disable-next-line no-unused-vars
+        compiledMarkdown: state => html => {
+            return this.$marked(html, { sanitize: true })
+        },
     },
     mutations: {
         controlUp(state) {

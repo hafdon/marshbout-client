@@ -26,21 +26,8 @@
 <script>
 export default {
     name: 'NpcLegendaryActionForm',
-    props: {
-        liveForm: {
-            type: Object,
-            required: true,
-        },
-    },
-    watch: {
-        liveForm: {
-            immediate: true,
-            deep: true,
-            handler(val) {
-                console.log({ NpcLegendaryActionForm_liveForm: val })
-            },
-        },
-    },
+    props: {},
+    watch: {},
     data() {
         return {}
     },
