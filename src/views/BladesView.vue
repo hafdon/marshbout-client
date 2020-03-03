@@ -4,9 +4,19 @@
             <span class="float-left text-left">
                 <b-form-group>
                     <b-button @click="getRandom">push me</b-button>
-                    <b-form-checkbox v-model="blades_faction">Use Blades Factions</b-form-checkbox>
+                    <b-form-checkbox v-model="blades_faction"
+                        >Use Blades Factions</b-form-checkbox
+                    >
                 </b-form-group>
             </span>
+        </template>
+        <template v-slot:footer>
+            <b-form-group>
+                <b-button @click="live = !live">Edit?</b-button>
+                <b-button :disabled="!canSubmit" @click="onSave"
+                    >Save me</b-button
+                >
+            </b-form-group>
         </template>
         <b-card-body>
             <!-- <b-list-group v-if="stuff.length" class="text-left">
@@ -17,24 +27,32 @@
             </b-list-group>-->
             <b-form-group v-if="stuff.length" class="text-left m-0 p-0">
                 <b-form class="m-0 p-0">
-                    <b-form-group class="m-0 p-0" v-for="(s, index) in stuff" :key="index">
+                    <b-form-group
+                        class="m-0 p-0"
+                        v-for="(s, index) in stuff"
+                        :key="index"
+                    >
                         <b-row class="m-0 p-0">
                             <b-col cols="2" class="m-0 px-1">
                                 <div class="text-right m-0 p-0">
                                     <label class="m-0 p-0">
-                                        <strong class="m-0 p-0">{{ s.head }}</strong>
+                                        <strong class="m-0 p-0">{{
+                                            s.head
+                                        }}</strong>
                                     </label>
                                 </div>
                             </b-col>
                             <b-col class="m-0 px-1">
-                                <b-form-input class="m-0 p-0" v-model="s.body" :plaintext="!live"></b-form-input>
+                                <b-form-input
+                                    class="m-0 p-0"
+                                    v-model="s.body"
+                                    :plaintext="!live"
+                                ></b-form-input>
                             </b-col>
                         </b-row>
                     </b-form-group>
                 </b-form>
             </b-form-group>
-            <b-button @click="live = !live">Edit?</b-button>
-            <b-button :disabled="!canSubmit" @click="onSave">Save me</b-button>
         </b-card-body>
     </b-card>
 </template>
@@ -107,8 +125,19 @@ export default {
                     head: 'faction scheme',
                     body: this.getRandomEl(tables.villains.schemes),
                 })
+                stuff.push({
+                    head: 'defining mission',
+                    body: this.getRandomEl(tables.missions).name,
+                })
+                stuff.push({
+                    head: 'goal',
+                    body: this.getRandomEl(tables.goals).name,
+                })
 
                 stuff.push(await this.stuffWiffRandom('npc', 'client'))
+                stuff.push(
+                    await this.stuffWiffRandom('description', 'desc', 'content')
+                )
                 stuff.push(await this.stuffWiffRandom('npc', 'target'))
                 stuff.push(
                     await this.stuffWiffRandom('description', 'desc', 'content')
