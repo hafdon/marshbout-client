@@ -26,11 +26,7 @@
                         ></GlobalResultsbar>
                     </b-nav-form>
 
-                    <b-nav-item-dropdown
-                        dropleft
-                        text="routes"
-                        variant="primary"
-                    >
+                    <b-nav-item-dropdown dropleft text="routes" variant="primary">
                         <template v-slot:button-content>
                             <b-button
                                 :variant="
@@ -38,8 +34,7 @@
                                         ? 'outline-danger'
                                         : 'outline-light'
                                 "
-                                >routes</b-button
-                            >
+                            >routes</b-button>
                         </template>
                         <b-dropdown-item to="/">
                             <span class="shortcut-key">H</span>ome
@@ -49,48 +44,39 @@
                             to="/combat-tracker"
                             v-html="keyHighlight('Combat Tracker', 'T')"
                         ></b-dropdown-item>
-                        <b-dropdown-item :to="{ name: 'Prep' }"
-                            >Prep</b-dropdown-item
-                        >
+                        <b-dropdown-item :to="{ name: 'Prep' }">Prep</b-dropdown-item>
                         <b-dropdown-item
                             class="pl-4"
                             to="/recap"
                             v-html="keyHighlight('Recap', 'e')"
                         ></b-dropdown-item>
-                        <b-dropdown-item to="/improvisation"
-                            >Improvisation</b-dropdown-item
-                        >
+                        <b-dropdown-item to="/improvisation">Improvisation</b-dropdown-item>
                         <b-dropdown-item to="/work">
                             <span class="shortcut-key">W</span>orks
                         </b-dropdown-item>
-                        <b-dropdown-item to="/faction"
-                            >Factions</b-dropdown-item
-                        >
+                        <b-dropdown-item to="/faction">Factions</b-dropdown-item>
                         <b-dropdown-item to="/clock">Clocks</b-dropdown-item>
-                        <b-dropdown-item to="/description"
-                            ><div
-                                v-html="keyHighlight('Description', 'e')"
-                            ></div
-                        ></b-dropdown-item>
+                        <b-dropdown-item to="/description">
+                            <div v-html="keyHighlight('Description', 'e')"></div>
+                        </b-dropdown-item>
+                        <b-dropdown-item to="/settings">
+                            <div v-html="keyHighlight('Settings', 'g')"></div>
+                        </b-dropdown-item>
                         <b-dropdown-item
                             class="pl-4"
                             to="/bible"
                             v-html="keyHighlight('Bible', 'B')"
                         ></b-dropdown-item>
-                        <b-dropdown-item to="/transcript"
-                            >Transcripts</b-dropdown-item
-                        >
-                        <b-dropdown-item to="/location"
-                            >Locations</b-dropdown-item
-                        >
+                        <b-dropdown-item to="/transcript">Transcripts</b-dropdown-item>
+                        <b-dropdown-item to="/location">Locations</b-dropdown-item>
                         <b-dropdown-item
                             class="pl-4"
                             to="/position"
                             v-html="keyHighlight('Position', 'o')"
                         ></b-dropdown-item>
-                        <b-dropdown-item to="/blades"
-                            ><div v-html="keyHighlight('Blades', 'a')"></div
-                        ></b-dropdown-item>
+                        <b-dropdown-item to="/blades">
+                            <div v-html="keyHighlight('Blades', 'a')"></div>
+                        </b-dropdown-item>
                         <b-dropdown-item to="/npc">
                             <span class="shortcut-key">N</span>PCs
                         </b-dropdown-item>
@@ -228,6 +214,7 @@ export default {
                 x: 'lexeme',
                 o: 'position',
                 a: 'blades',
+                g: 'settings',
             }
             return hash[key.toLowerCase()] || null
         },
@@ -240,7 +227,7 @@ export default {
                     if (/s/i.exec(key) !== null) {
                         this.setFocus('globalsearchbar')
                     } else if (this.handleControlPressed(key) !== null) {
-                        this.router.push('/' + this.handleControlPressed(key))
+                        this.$router.push('/' + this.handleControlPressed(key))
                     }
                 }
             } catch (e) {

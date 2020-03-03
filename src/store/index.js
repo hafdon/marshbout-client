@@ -8,11 +8,17 @@ export default new Vuex.Store({
     state: {
         controlpressed: false,
         dirty: false,
+        keyboard_shortcuts: true,
+        show_randomize_button: true,
+        // todo: use this
     },
     getters: {
         controlpressed(state) {
-            // return state.controlpressed
-            return false
+            return state.keyboard_shortcuts && state.controlpressed
+        },
+        keyboardShortcuts(state) {
+            debugger
+            return state.keyboard_shortcuts
         },
         dirty(state) {
             return state.dirty
@@ -49,6 +55,10 @@ export default new Vuex.Store({
         makeClean(state) {
             console.log('makeClean')
             state.dirty = false
+        },
+        toggleKeyboardShortcuts(state) {
+            debugger
+            state.keyboard_shortcuts = !state.keyboard_shortcuts
         },
     },
     actions: {},
