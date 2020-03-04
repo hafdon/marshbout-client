@@ -47,11 +47,21 @@
             v-for="(c, index) in controls.form_textarea"
             :key="`textarea_${index}`"
         >
-            <label class="float-left">{{ c.label }}</label>
-            <b-form-textarea
-                v-model="form[c.label]"
-                :rows="c.rows"
-            ></b-form-textarea>
+            <template v-if="!c.type">
+                <label class="float-left">{{ c.label }}</label>
+                <b-form-textarea
+                    v-if="!c.type"
+                    v-model="form[c.label]"
+                    :rows="c.rows"
+                ></b-form-textarea>
+            </template>
+            <template v-if="c.type === 'markdown'">
+                <form-textarea-markdown v-model="form[c.label]" :rows="c.rows"
+                    ><label class="float-left">{{
+                        c.label
+                    }}</label></form-textarea-markdown
+                >
+            </template>
         </b-form-group>
 
         <span v-if="id" class="float-left">

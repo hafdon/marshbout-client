@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import marked from 'marked'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -27,8 +27,11 @@ export default new Vuex.Store({
             return !state.dirty
         },
 
-        compiledMarkdown: state => html => {
-            return this.$marked(html, { sanitize: true })
+        compiledMarkdown: state => value => {
+            if (value) {
+                return marked(value, { sanitized: true })
+            }
+            return ''
         },
         show: state => element => {
             if (element.name === 'z-table-random-btn') {

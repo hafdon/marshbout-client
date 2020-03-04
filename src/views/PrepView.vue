@@ -3,14 +3,24 @@
         <b-row>
             <b-col cols="12">
                 <b-card-group columns>
-                    <b-card no-body bg-variant="dark" text-variant="light" class="mb-2 p-0">
+                    <b-card
+                        no-body
+                        bg-variant="dark"
+                        text-variant="light"
+                        class="mb-2 p-0"
+                    >
                         <b-card-body class="m-0 p-1">
-                            <div class="cheatsheet m-0 p-0" v-html="prepCheatsheet"></div>
+                            <div
+                                class="cheatsheet m-0 p-0"
+                                v-html="prepCheatsheet"
+                            ></div>
                         </b-card-body>
                     </b-card>
                     <b-card no-body class="text-left">
                         <b-card-body>
-                            <b-form-checkbox inline v-model="show_tooltips">Show Tooltips</b-form-checkbox>
+                            <b-form-checkbox inline v-model="show_tooltips"
+                                >Show Tooltips</b-form-checkbox
+                            >
                         </b-card-body>
                     </b-card>
                 </b-card-group>
@@ -44,21 +54,28 @@
                         <template v-slot:cell(name)="row">
                             <div class="td_name">
                                 <router-link
-                                    :id="`tooltip_target_${row.item.resource}_${row.item.id}`"
+                                    :id="
+                                        `tooltip_target_${row.item.resource}_${row.item.id}`
+                                    "
                                     :to="{
                                         path: `/${row.item.resource}/${row.item.id}`,
                                     }"
-                                >{{ displayName(row.item) }}</router-link>
+                                    >{{ displayName(row.item) }}</router-link
+                                >
                                 <b-tooltip
                                     container="prep_view_container"
                                     v-if="show_tooltips"
                                     placement="bottom"
-                                    :target="`tooltip_target_${row.item.resource}_${row.item.id}`"
+                                    :target="
+                                        `tooltip_target_${row.item.resource}_${row.item.id}`
+                                    "
                                 >
                                     <b-card no-body>
                                         <b-card-body>
                                             <EndpointDisplay
-                                                :url="`${row.item.resource}/${row.item.id}`"
+                                                :url="
+                                                    `${row.item.resource}/${row.item.id}`
+                                                "
                                             ></EndpointDisplay>
                                         </b-card-body>
                                     </b-card>
@@ -77,7 +94,9 @@
                                 variant="transparent"
                                 @click="togglePrep(row.item, row.index)"
                             >
-                                <b-icon-toggle-on v-if="row.item.prep"></b-icon-toggle-on>
+                                <b-icon-toggle-on
+                                    v-if="row.item.prep"
+                                ></b-icon-toggle-on>
                                 <b-icon-toggle-off v-else></b-icon-toggle-off>
                             </b-button>
                         </template>
@@ -158,12 +177,14 @@ export default {
             endpoints.forEach(endpoint => {
                 items = [
                     ...items,
-                    ...data[endpoint]
-                        .filter(el => !!el?.prep)
-                        .map(el => {
-                            el.resource = endpoint
-                            return el
-                        }),
+                    ...(Array.isArray(data[endpoint])
+                        ? data[endpoint]
+                              .filter(el => !!el?.prep)
+                              .map(el => {
+                                  el.resource = endpoint
+                                  return el
+                              })
+                        : []),
                 ]
             })
 

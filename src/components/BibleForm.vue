@@ -9,6 +9,7 @@
 
 <script>
 export default {
+    inheritAttrs: false,
     name: 'BibleForm',
     props: {
         id: {
@@ -37,6 +38,7 @@ export default {
     },
     created() {
         this.clearForm()
+        this.$bvToast('inherit attrs is false')
     },
     computed: {
         listeners() {
