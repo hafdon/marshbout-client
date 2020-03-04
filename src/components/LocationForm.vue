@@ -10,6 +10,12 @@
 <script>
 import ZForm from '@/components/ZForm.vue'
 
+/*****
+ *
+ * TODO: delete file (not being used)
+ *
+ */
+
 export default {
     name: 'LocationForm',
     inheritAttrs: false,
@@ -30,20 +36,7 @@ export default {
         },
     },
     data() {
-        return {
-            controls: {
-                form_textarea: [
-                    { label: 'name' },
-                    { label: 'description', rows: 20 },
-                ],
-                form_tags: [{ label: 'tags' }],
-            },
-            form: {
-                name: '',
-                description: '',
-                tags: [],
-            },
-        }
+        return {}
     },
     created() {},
 }

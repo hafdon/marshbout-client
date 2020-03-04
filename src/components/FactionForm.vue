@@ -116,7 +116,7 @@ export default {
                         {
                             if (
                                 window.confirm(
-                                    'You have unsaved changes. Click "ok" to discard changes.'
+                                    'You have unsaved changes. Click "ok faction form" to discard changes.'
                                 )
                             ) {
                                 this.dirty = false

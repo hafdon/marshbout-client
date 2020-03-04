@@ -2,6 +2,15 @@
     <b-container id="app" fluid>
         <b-navbar variant="dark" type="light" class="mb-4">
             <!-- <b-navbar-brand href="#">rpg.tools</b-navbar-brand> -->
+            <b-navbar-nav>
+                <b-navbar-item
+                    ><b-icon-gear-fill
+                        @click="$router.push('/settings')"
+                        font-scale="2"
+                        variant="light"
+                    ></b-icon-gear-fill
+                ></b-navbar-item>
+            </b-navbar-nav>
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
             <!-- <b-nav-text
                 ><b-breadcrumb :items="breadcrumbs"></b-breadcrumb
@@ -26,7 +35,11 @@
                         ></GlobalResultsbar>
                     </b-nav-form>
 
-                    <b-nav-item-dropdown dropleft text="routes" variant="primary">
+                    <b-nav-item-dropdown
+                        dropleft
+                        text="routes"
+                        variant="primary"
+                    >
                         <template v-slot:button-content>
                             <b-button
                                 :variant="
@@ -34,51 +47,20 @@
                                         ? 'outline-danger'
                                         : 'outline-light'
                                 "
-                            >routes</b-button>
+                                >routes</b-button
+                            >
                         </template>
                         <b-dropdown-item to="/">
                             <span class="shortcut-key">H</span>ome
                         </b-dropdown-item>
+
                         <b-dropdown-item
-                            class="pl-4"
-                            to="/combat-tracker"
-                            v-html="keyHighlight('Combat Tracker', 'T')"
-                        ></b-dropdown-item>
-                        <b-dropdown-item :to="{ name: 'Prep' }">Prep</b-dropdown-item>
-                        <b-dropdown-item
-                            class="pl-4"
-                            to="/recap"
-                            v-html="keyHighlight('Recap', 'e')"
-                        ></b-dropdown-item>
-                        <b-dropdown-item to="/improvisation">Improvisation</b-dropdown-item>
-                        <b-dropdown-item to="/work">
-                            <span class="shortcut-key">W</span>orks
-                        </b-dropdown-item>
-                        <b-dropdown-item to="/faction">Factions</b-dropdown-item>
-                        <b-dropdown-item to="/clock">Clocks</b-dropdown-item>
-                        <b-dropdown-item to="/description">
-                            D
-                            <span class="shortcut-key">e</span>scription
-                        </b-dropdown-item>
-                        <b-dropdown-item
-                            class="pl-4"
-                            to="/bible"
-                            v-html="keyHighlight('Bible', 'B')"
-                        ></b-dropdown-item>
-                        <b-dropdown-item to="/transcript">Transcripts</b-dropdown-item>
-                        <b-dropdown-item to="/location">Locations</b-dropdown-item>
-                        <b-dropdown-item
-                            class="pl-4"
-                            to="/position"
-                            v-html="keyHighlight('Position', 'o')"
-                        ></b-dropdown-item>
-                        <b-dropdown-item to="/npc">
-                            <span class="shortcut-key">N</span>PCs
-                        </b-dropdown-item>
-                        <b-dropdown-item
-                            class="pl-4"
-                            to="/lexeme"
-                            v-html="keyHighlight('Lexeme', 'x')"
+                            v-for="(d, index) in DropdownLinks"
+                            :to="d.to"
+                            :key="index"
+                            ><div
+                                v-html="keyHighlight(d.label, d.shortkey)"
+                            ></div
                         ></b-dropdown-item>
                     </b-nav-item-dropdown>
                 </b-navbar-nav>
@@ -104,9 +86,26 @@ export default {
         window.removeEventListener('keydown', this.onKeydown, false)
         window.removeEventListener('keyup', this.onKeyup, false)
     },
-    beforeRouteLeave() {
-        // eslint-disable-next-line no-console
-        console.log('leaving route')
+    // eslint-disable-next-line no-unused-vars
+    beforeRouteUpdate(to, from, next) {
+        console.log({ app_beforeRouteLeave: { to, from, next } })
+
+        let response = false
+
+        if (this.dirty) {
+            response = window.confirm(
+                'You have unsaved changes. Click "ok app" to discard changes.'
+            )
+
+            if (response === true) {
+                this.makeClean()
+            }
+        }
+
+        if (this.clean) {
+            next()
+            return
+        }
     },
     components: {
         GlobalSearchbar,
@@ -118,6 +117,13 @@ export default {
             dirty: 'dirty',
             clean: 'clean',
         }),
+        DropdownLinks() {
+            return this.dropdown_links
+                .map(el => el)
+                .sort((a, b) => {
+                    return a.label.localeCompare(b.label)
+                })
+        },
     },
     data() {
         return {
@@ -125,6 +131,63 @@ export default {
             search_bar: '',
             breadcrumbs: [],
             threebox: null,
+            dropdown_links: [
+                {
+                    to: '/combat-tracker',
+                    shortkey: 'T',
+                    label: 'Combat Tracker',
+                },
+                {
+                    to: '/prep',
+                    shortkey: 'P',
+                    label: 'Prep',
+                },
+                {
+                    to: '/improvisation',
+                    shortkey: 'I',
+                    label: 'Improv',
+                },
+                {
+                    to: '/work',
+                    shortkey: 'W',
+                    label: 'Works',
+                },
+                {
+                    to: '/clock',
+                    shortkey: 'C',
+                    label: 'Clocks',
+                },
+                {
+                    to: '/faction',
+                    shortkey: 'F',
+                    label: 'Factions',
+                },
+                {
+                    to: '/blades',
+                    shortkey: 'a',
+                    label: 'Blades',
+                },
+                {
+                    to: '/bible',
+                    shortkey: 'B',
+                    label: 'Bible',
+                },
+                {
+                    to: '/recap',
+                    shortkey: 'e',
+                    label: 'Recaps',
+                },
+                {
+                    to: '/lexeme',
+                    shortkey: 'x',
+                    label: 'Lexems',
+                },
+                {
+                    to: '/settings',
+                    shortkey: 'g',
+                    label: 'Settings',
+                },
+            ],
         }
     },
     watch: {
@@ -134,6 +197,10 @@ export default {
         //         console.log({ controlpressed: { val, old } })
         //     },
         // },
+        // eslint-disable-next-line no-unused-vars
+        $route(to, from) {
+            console.log('route switched', to, from)
+        },
         threebox: {
             immediate: true,
             handler(val) {
@@ -142,6 +209,7 @@ export default {
             },
         },
     },
+
     methods: {
         ...mapMutations({
             controlUp: 'controlUp',
@@ -174,6 +242,13 @@ export default {
         },
 
         handleControlPressed(key) {
+            let hash1 = Object.fromEntries(
+                this.dropdown_links.map(({ shortkey, to }) => ({
+                    [shortkey.toLowerCase()]: to.replace('/', ''),
+                }))
+            )
+            console.log({ hash1 })
+
             let hash = {
                 t: '',
                 n: 'npc',
@@ -187,6 +262,8 @@ export default {
                 e: 'recap',
                 x: 'lexeme',
                 o: 'position',
+                a: 'blades',
+                g: 'settings',
             }
             return hash[key.toLowerCase()] || null
         },
@@ -199,32 +276,24 @@ export default {
                     if (/s/i.exec(key) !== null) {
                         this.setFocus('globalsearchbar')
                     } else if (this.handleControlPressed(key) !== null) {
-                        this.pushRoute({
-                            route: '/' + this.handleControlPressed(key),
-                        })
+                        this.$router.push('/' + this.handleControlPressed(key))
                     }
                 }
             } catch (e) {
                 console.log(e)
             }
         },
-        pushRoute({ route }) {
-            if (this.dirty) {
-                if (
-                    window.confirm(
-                        'You have unsaved changes. Click "ok" to discard changes.'
-                    )
-                ) {
-                    this.makeClean()
-                }
-            }
-            if (this.clean) {
-                this.$router.push(route)
-            }
-        },
+
         keyHighlight(word, letter) {
-            let splitted = String(word).split(letter)
-            return `${splitted[0]}<span class="shortcut-key">${letter}</span>${splitted[1]}`
+            console.log({ keyHighlight: { word, letter } })
+            let index = String(word).indexOf(letter)
+
+            return `${word.slice(
+                0,
+                index
+            )}<span class="shortcut-key">${letter}</span>${word.slice(
+                index + 1
+            )}`
         },
     },
 }

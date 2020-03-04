@@ -1,6 +1,6 @@
 <template>
     <b-container fluid>
-        <h4 class="text-left">{{heading}}</h4>
+        <h4 class="text-left">{{ heading }}</h4>
         <b-row>
             <b-col xs="12" lg="6">
                 <b-card no-body bg-variant="light">
@@ -21,10 +21,18 @@
                 <b-card no-body bg-variant="light">
                     <template v-slot:header>
                         <b-form-group class="m-0 p-0">
-                            <b-form-input :debounce="filterDebounce" v-model="tableFilter"></b-form-input>
+                            <b-form-input
+                                :debounce="filterDebounce"
+                                v-model="tableFilter"
+                            ></b-form-input>
                         </b-form-group>
-                        <b-form-group class="m-0 p-0">
-                            <b-button block @click="selectRandom()">Random!</b-button>
+                        <b-form-group
+                            class="m-0 p-0"
+                            v-if="show({ name: 'z-table-random-btn' })"
+                        >
+                            <b-button block @click="selectRandom()"
+                                >Random!</b-button
+                            >
                         </b-form-group>
                     </template>
                     <b-card-body>
@@ -151,6 +159,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
-
+<style></style>
