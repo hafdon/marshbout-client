@@ -12,6 +12,7 @@ import Threebox from '@/components/Threebox.vue'
 import ZForm from '@/components/ZForm.vue'
 import ZTable from '@/components/ZTable.vue'
 import ZView from '@/views/ZView.vue'
+import FormTextareaMarkdown from '@/components/FormTextareaMarkdown.vue'
 import marked from 'marked'
 
 // see: https://github.com/twbs/bootstrap/issues/23590
@@ -33,6 +34,7 @@ Vue.component('Threebox', Threebox)
 Vue.component('ZForm', ZForm)
 Vue.component('ZTable', ZTable)
 Vue.component('ZView', ZView)
+Vue.component('FormTextareaMarkdown', FormTextareaMarkdown)
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'

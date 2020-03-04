@@ -3,13 +3,13 @@
         <b-navbar variant="dark" type="light" class="mb-4">
             <!-- <b-navbar-brand href="#">rpg.tools</b-navbar-brand> -->
             <b-navbar-nav>
-                <b-navbar-item
+                <b-nav-item
                     ><b-icon-gear-fill
                         @click="$router.push('/settings')"
                         font-scale="2"
                         variant="light"
                     ></b-icon-gear-fill
-                ></b-navbar-item>
+                ></b-nav-item>
             </b-navbar-nav>
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
             <!-- <b-nav-text
