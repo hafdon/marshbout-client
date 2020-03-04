@@ -2,7 +2,9 @@
     <b-container>
         <b-card no-body>
             <b-card-body>
-                <b-button @click="toggleKeyboardShortcuts">Toggle Keyboard Shortcuts</b-button>
+                <b-button @click="toggleKeyboardShortcuts"
+                    >Toggle Keyboard Shortcuts</b-button
+                >
             </b-card-body>
         </b-card>
     </b-container>
