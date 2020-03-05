@@ -3,13 +3,13 @@
         <b-navbar variant="dark" type="light" class="mb-4">
             <!-- <b-navbar-brand href="#">rpg.tools</b-navbar-brand> -->
             <b-navbar-nav>
-                <b-nav-item
-                    ><b-icon-gear-fill
+                <b-nav-item>
+                    <b-icon-gear-fill
                         @click="$router.push('/settings')"
                         font-scale="2"
                         variant="light"
-                    ></b-icon-gear-fill
-                ></b-nav-item>
+                    ></b-icon-gear-fill>
+                </b-nav-item>
             </b-navbar-nav>
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
             <!-- <b-nav-text
@@ -35,11 +35,7 @@
                         ></GlobalResultsbar>
                     </b-nav-form>
 
-                    <b-nav-item-dropdown
-                        dropleft
-                        text="routes"
-                        variant="primary"
-                    >
+                    <b-nav-item-dropdown dropleft text="routes" variant="primary">
                         <template v-slot:button-content>
                             <b-button
                                 :variant="
@@ -47,8 +43,7 @@
                                         ? 'outline-danger'
                                         : 'outline-light'
                                 "
-                                >routes</b-button
-                            >
+                            >routes</b-button>
                         </template>
                         <b-dropdown-item to="/">
                             <span class="shortcut-key">H</span>ome
@@ -58,10 +53,9 @@
                             v-for="(d, index) in DropdownLinks"
                             :to="d.to"
                             :key="index"
-                            ><div
-                                v-html="keyHighlight(d.label, d.shortkey)"
-                            ></div
-                        ></b-dropdown-item>
+                        >
+                            <div v-html="keyHighlight(d.label, d.shortkey)"></div>
+                        </b-dropdown-item>
                     </b-nav-item-dropdown>
                 </b-navbar-nav>
             </b-collapse>
@@ -187,17 +181,15 @@ export default {
                     shortkey: 'g',
                     label: 'Settings',
                 },
+                {
+                    to: '/npc',
+                    shortkey: 'N',
+                    label: 'NPCs',
+                },
             ],
         }
     },
     watch: {
-        // controlpressed: {
-        //     immediate: true,
-        //     handler(val, old) {
-        //         console.log({ controlpressed: { val, old } })
-        //     },
-        // },
-        // eslint-disable-next-line no-unused-vars
         $route(to, from) {
             console.log('route switched', to, from)
         },
