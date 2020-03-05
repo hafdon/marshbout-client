@@ -21,18 +21,10 @@
                 <b-card no-body bg-variant="light">
                     <template v-slot:header>
                         <b-form-group class="m-0 p-0">
-                            <b-form-input
-                                :debounce="filterDebounce"
-                                v-model="tableFilter"
-                            ></b-form-input>
+                            <b-form-input :debounce="filterDebounce" v-model="tableFilter"></b-form-input>
                         </b-form-group>
-                        <b-form-group
-                            class="m-0 p-0"
-                            v-if="show({ name: 'z-table-random-btn' })"
-                        >
-                            <b-button block @click="selectRandom()"
-                                >Random!</b-button
-                            >
+                        <b-form-group class="m-0 p-0" v-if="show({ name: 'z-table-random-btn' })">
+                            <b-button block @click="selectRandom()">Random!</b-button>
                         </b-form-group>
                     </template>
                     <b-card-body>
@@ -53,8 +45,10 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
     name: 'ZView',
+
     props: {
         heading: String,
         title: String,
@@ -135,6 +129,11 @@ export default {
         return {
             selected_id: undefined,
         }
+    },
+    computed: {
+        ...mapGetters({
+            show: 'show',
+        }),
     },
     methods: {
         onRowSelected({ row }) {

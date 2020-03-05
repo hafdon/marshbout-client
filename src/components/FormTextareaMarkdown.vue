@@ -4,10 +4,12 @@
         <b-tabs card>
             <b-tab title="Markdown" active>
                 <b-form-textarea
+                    class="form-textarea-markdown"
                     v-on="listeners"
                     v-bind="attrs"
                     :value="value"
                     @input="input"
+                    :rows="Rows"
                 ></b-form-textarea>
             </b-tab>
             <b-tab title="Preview">
@@ -40,6 +42,9 @@ export default {
         cm() {
             return this.compiledMarkdown(this.value)
         },
+        Rows() {
+            return Math.min(String(this.value).split(/\n/g).length, 10)
+        },
     },
     methods: {
         input(value) {
@@ -49,4 +54,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+/* .form-textarea-markdown {
+    height: auto;
+} */
+</style>

@@ -56,11 +56,11 @@
                 ></b-form-textarea>
             </template>
             <template v-if="c.type === 'markdown'">
-                <form-textarea-markdown v-model="form[c.label]" :rows="c.rows">
-                    <label class="float-left">
-                        {{ c.label }}
-                    </label>
-                </form-textarea-markdown>
+                <form-textarea-markdown v-model="form[c.label]" :rows="c.rows"
+                    ><label class="float-left">{{
+                        c.label
+                    }}</label></form-textarea-markdown
+                >
             </template>
         </b-form-group>
 
@@ -284,13 +284,6 @@ export default {
             } catch (e) {
                 console.log(e)
             }
-        },
-
-        async onSaveAsNew() {
-            this.$bvToast.toast('This feature is not implemented yet', {
-                title: 'WARNING',
-                variant: 'danger',
-            })
         },
 
         async onSubmit() {
