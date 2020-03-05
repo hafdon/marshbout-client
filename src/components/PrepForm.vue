@@ -46,14 +46,20 @@ export default {
     data() {
         return {
             controls: {
-                form_textarea: [{ label: 'description', rows: 30 }],
+                form_textarea: [
+                    { label: 'description', rows: 30, type: 'markdown' },
+                ],
                 form_tags: [{ label: 'tags' }],
-                form_input: [{ label: 'session_id', type: 'number' }],
+                form_input: [
+                    { label: 'session_id', type: 'number' },
+                    { label: 'session_date', type: 'date' },
+                ],
             },
             form: {
                 name: '',
                 description: '',
                 session_id: null,
+                session_date: '',
                 tags: [],
             },
             axios: {

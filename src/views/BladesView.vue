@@ -143,6 +143,9 @@ export default {
                     await this.stuffWiffRandom('description', 'desc', 'content')
                 )
                 stuff.push(
+                    await this.stuffWiffRandom('lexeme', 'word', 'headword')
+                )
+                stuff.push(
                     await this.stuffWiffRandom(
                         'bible?tags_like=hook',
                         'hook',

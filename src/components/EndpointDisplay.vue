@@ -2,8 +2,8 @@
     <b-container>
         <div class="text-left" v-for="(d, index) of displayKeys" :key="index">
             <b-row v-if="show(display[d], d)">
-                <strong>{{d}}:</strong>
-                {{display[d]}}
+                <strong>{{ d }}:</strong>
+                {{ display[d] }}
             </b-row>
         </div>
     </b-container>
@@ -75,4 +75,3 @@ export default {
     },
 }
 </script>
-

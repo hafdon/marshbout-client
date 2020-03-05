@@ -23,34 +23,31 @@
         </b-form-group>
 
         <b-form-group>
-            <label class="float-left" for="input-description"
-                >Description</label
-            >
-            <b-form-textarea
-                rows="5"
+            <form-textarea-markdown
                 v-model="form.description"
                 id="input-description"
-                type="text"
-            ></b-form-textarea>
+            >
+                <label class="float-left m-0 p-0" for="input-description"
+                    >Description</label
+                ></form-textarea-markdown
+            >
         </b-form-group>
 
         <b-form-group>
-            <label class="float-left" for="input-turf">Turf</label>
+            <label class="float-left m-0 p-0" for="input-turf">Turf</label>
             <b-form-textarea
+                class="m-0 p-0"
                 rows="3"
                 v-model="form.turf"
                 id="input-turf"
-                type="text"
             ></b-form-textarea>
         </b-form-group>
         <b-form-group>
-            <label class="float-left" for="input-npcs">NPCs</label>
-            <b-form-textarea
-                rows="5"
-                v-model="form.npcs"
-                id="input-npcs"
-                type="text"
-            ></b-form-textarea>
+            <form-textarea-markdown v-model="form.npcs" id="input-npcs"
+                ><label class="float-left  m-0 p-0" for="input-npcs"
+                    >NPCs</label
+                ></form-textarea-markdown
+            >
         </b-form-group>
         <b-form-group>
             <label class="float-left" for="input-assets">Assets</label>

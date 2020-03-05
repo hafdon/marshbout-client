@@ -33,7 +33,9 @@ export default {
                     { label: 'language', type: 'text' },
                 ],
                 form_tags: [{ label: 'tags' }],
-                form_textarea: [{ label: 'definitions', rows: 5 }],
+                form_textarea: [
+                    { label: 'definitions', rows: 5, type: 'markdown' },
+                ],
             },
             axios: {
                 url: 'lexeme',
