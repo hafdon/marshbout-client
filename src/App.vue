@@ -177,6 +177,11 @@ export default {
                     label: 'Lexems',
                 },
                 {
+                    to: '/location',
+                    shortkey: 'l',
+                    label: 'Locations',
+                },
+                {
                     to: '/settings',
                     shortkey: 'g',
                     label: 'Settings',

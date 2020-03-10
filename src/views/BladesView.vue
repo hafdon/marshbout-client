@@ -115,6 +115,11 @@ export default {
                 })
 
                 stuff.push({
+                    head: 'demon desire',
+                    body: this.getRandomEl(tables.desires).name,
+                })
+
+                stuff.push({
                     head: 'faction scheme',
                     body: this.getRandomEl(tables.villains.schemes),
                 })
