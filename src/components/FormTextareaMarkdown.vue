@@ -22,6 +22,7 @@
                     class="form-textarea-markdown"
                     :value="turndown_value"
                     :rows="Rows"
+                    @input="tdInput"
                 ></b-form-textarea>
             </b-tab>
             <b-tab title="Turndown Markdown">
@@ -39,6 +40,16 @@ export default {
     name: 'FormTextareaMarkdown',
     inheritAttrs: false,
     props: ['value'],
+    watch: {
+        turndown_value: {
+            immediate: true,
+            // eslint-disable-next-line no-unused-vars
+            handler(val) {
+                // console.log({ turndown_value: val })
+                return
+            },
+        },
+    },
     data() {
         return {
             turndown_value: '',
@@ -60,6 +71,7 @@ export default {
             return this.compiledMarkdown(this.value)
         },
         tmd() {
+            // console.log({ turndown: this.turndown_value })
             return this.$turndown.turndown(this.turndown_value)
         },
         Rows() {
@@ -69,6 +81,10 @@ export default {
     methods: {
         input(value) {
             this.$emit('input', value)
+        },
+        // TODO: fix this janky fix
+        tdInput(value) {
+            this.turndown_value = value
         },
     },
 }

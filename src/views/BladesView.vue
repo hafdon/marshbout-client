@@ -4,14 +4,18 @@
             <span class="float-left text-left">
                 <b-form-group>
                     <b-button @click="getRandom">push me</b-button>
-                    <b-form-checkbox v-model="blades_faction">Use Blades Factions</b-form-checkbox>
+                    <b-form-checkbox v-model="blades_faction"
+                        >Use Blades Factions</b-form-checkbox
+                    >
                 </b-form-group>
             </span>
         </template>
         <template v-slot:footer>
             <b-form-group>
                 <b-button @click="live = !live">Edit?</b-button>
-                <b-button :disabled="!canSubmit" @click="onSave">Save me</b-button>
+                <b-button :disabled="!canSubmit" @click="onSave"
+                    >Save me</b-button
+                >
             </b-form-group>
         </template>
         <b-card-body>
@@ -23,21 +27,34 @@
             </b-list-group>-->
             <b-form-group v-if="stuff.length" class="text-left m-0 p-0">
                 <b-form class="m-0 p-0">
-                    <b-form-group class="m-0 p-0" v-for="(s, index) in stuff" :key="index">
+                    <b-form-group
+                        class="m-0 p-0"
+                        v-for="(s, index) in stuff"
+                        :key="index"
+                    >
                         <b-row class="m-0 p-0">
+                            <b-col cols="2" class="m-0 px-1"
+                                ><b-button @click="add(index, s.head)"
+                                    >Add</b-button
+                                ><b-button @click="remove(index)"
+                                    >Remove</b-button
+                                ></b-col
+                            >
                             <b-col cols="2" class="m-0 px-1">
                                 <div class="text-right m-0 p-0">
                                     <label class="m-0 p-0">
                                         <strong class="m-0 p-0">
-                                            {{
-                                            s.head
-                                            }}
+                                            {{ s.head }}
                                         </strong>
                                     </label>
                                 </div>
                             </b-col>
                             <b-col class="m-0 px-1">
-                                <b-form-input class="m-0 p-0" v-model="s.body" :plaintext="!live"></b-form-input>
+                                <b-form-input
+                                    class="m-0 p-0"
+                                    v-model="s.body"
+                                    :plaintext="!live"
+                                ></b-form-input>
                             </b-col>
                         </b-row>
                     </b-form-group>
@@ -84,6 +101,29 @@ export default {
                 console.log(e)
             }
         },
+        async add(index, endpoint) {
+            try {
+                let { data } = await this.$axios.request({
+                    method: 'get',
+                    url: 'blades',
+                })
+
+                console.log({ data, data_endpoint: data[endpoint], endpoint })
+
+                this.stuff.splice(index, 0, {
+                    head: endpoint,
+                    body: this.getRandomEl(data[endpoint])?.name
+                        ? this.getRandomEl(data[endpoint]).name
+                        : this.getRandomEl(data[endpoint]),
+                })
+            } catch (e) {
+                console.log(e)
+            }
+            return true
+        },
+        async remove(index) {
+            this.stuff.splice(index, 1)
+        },
         async getRandom() {
             try {
                 let { data } = await this.$axios.request({
@@ -94,17 +134,13 @@ export default {
                 let endpoints = Object.getOwnPropertyNames(data)
                 let stuff = []
                 endpoints.forEach(el => {
-                    let head = el
-                    if (head === 'roles') {
-                        stuff.push({
-                            head: 'client',
-                            body: this.getRandomEl(data[el]),
-                        })
-                        head = 'target'
-                    }
+                    let head = el === 'roles' ? 'client' : el
+                    // we also want to do a role for client and target
                     stuff.push({
                         head,
-                        body: this.getRandomEl(data[el]),
+                        body: this.getRandomEl(data[el])?.name
+                            ? this.getRandomEl(data[el]).name
+                            : this.getRandomEl(data[el]),
                     })
                 })
 
