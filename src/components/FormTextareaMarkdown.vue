@@ -17,6 +17,19 @@
                     <div v-html="cm"></div>
                 </b-card-text>
             </b-tab>
+            <b-tab title="Turndown Paste">
+                <b-form-textarea
+                    class="form-textarea-markdown"
+                    :value="turndown_value"
+                    :rows="Rows"
+                    @input="tdInput"
+                ></b-form-textarea>
+            </b-tab>
+            <b-tab title="Turndown Markdown">
+                <b-card-text class="text-left">
+                    <div v-html="tmd"></div>
+                </b-card-text>
+            </b-tab>
         </b-tabs>
     </b-card>
 </template>
@@ -27,6 +40,21 @@ export default {
     name: 'FormTextareaMarkdown',
     inheritAttrs: false,
     props: ['value'],
+    watch: {
+        turndown_value: {
+            immediate: true,
+            // eslint-disable-next-line no-unused-vars
+            handler(val) {
+                // console.log({ turndown_value: val })
+                return
+            },
+        },
+    },
+    data() {
+        return {
+            turndown_value: '',
+        }
+    },
     computed: {
         ...mapGetters({
             compiledMarkdown: 'compiledMarkdown',
@@ -42,6 +70,10 @@ export default {
         cm() {
             return this.compiledMarkdown(this.value)
         },
+        tmd() {
+            // console.log({ turndown: this.turndown_value })
+            return this.$turndown.turndown(this.turndown_value)
+        },
         Rows() {
             return Math.min(String(this.value).split(/\n/g).length, 10)
         },
@@ -49,6 +81,10 @@ export default {
     methods: {
         input(value) {
             this.$emit('input', value)
+        },
+        // TODO: fix this janky fix
+        tdInput(value) {
+            this.turndown_value = value
         },
     },
 }

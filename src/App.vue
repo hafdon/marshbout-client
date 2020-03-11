@@ -3,13 +3,13 @@
         <b-navbar variant="dark" type="light" class="mb-4">
             <!-- <b-navbar-brand href="#">rpg.tools</b-navbar-brand> -->
             <b-navbar-nav>
-                <b-nav-item
-                    ><b-icon-gear-fill
+                <b-nav-item>
+                    <b-icon-gear-fill
                         @click="$router.push('/settings')"
                         font-scale="2"
                         variant="light"
-                    ></b-icon-gear-fill
-                ></b-nav-item>
+                    ></b-icon-gear-fill>
+                </b-nav-item>
             </b-navbar-nav>
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
             <!-- <b-nav-text
@@ -58,10 +58,11 @@
                             v-for="(d, index) in DropdownLinks"
                             :to="d.to"
                             :key="index"
-                            ><div
+                        >
+                            <div
                                 v-html="keyHighlight(d.label, d.shortkey)"
-                            ></div
-                        ></b-dropdown-item>
+                            ></div>
+                        </b-dropdown-item>
                     </b-nav-item-dropdown>
                 </b-navbar-nav>
             </b-collapse>
@@ -148,6 +149,16 @@ export default {
                     label: 'Improv',
                 },
                 {
+                    to: '/description',
+                    shortkey: 'D',
+                    label: 'Description',
+                },
+                {
+                    to: '/position',
+                    shortkey: 'o',
+                    label: 'Position',
+                },
+                {
                     to: '/work',
                     shortkey: 'W',
                     label: 'Works',
@@ -183,21 +194,24 @@ export default {
                     label: 'Lexems',
                 },
                 {
+                    to: '/location',
+                    shortkey: 'l',
+                    label: 'Locations',
+                },
+                {
                     to: '/settings',
                     shortkey: 'g',
                     label: 'Settings',
+                },
+                {
+                    to: '/npc',
+                    shortkey: 'N',
+                    label: 'NPCs',
                 },
             ],
         }
     },
     watch: {
-        // controlpressed: {
-        //     immediate: true,
-        //     handler(val, old) {
-        //         console.log({ controlpressed: { val, old } })
-        //     },
-        // },
-        // eslint-disable-next-line no-unused-vars
         $route(to, from) {
             console.log('route switched', to, from)
         },

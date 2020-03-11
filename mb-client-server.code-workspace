@@ -2,6 +2,12 @@
     "folders": [
         {
             "path": "."
+        },
+        {
+            "path": "C:\\Users\\Staff\\Documents\\rpg\\blades"
+        },
+        {
+            "path": "C:\\Users\\Staff\\Documents\\rpg\\5etools-homebrew-home"
         }
     ]
 }

@@ -15,6 +15,12 @@ import ZView from '@/views/ZView.vue'
 import FormTextareaMarkdown from '@/components/FormTextareaMarkdown.vue'
 import marked from 'marked'
 
+import TurndownService from 'turndown'
+
+// https://github.com/domchristie/turndown
+const turndownService = new TurndownService()
+// var markdown = turndownService.turndown('<h1>Hello world!</h1>')
+
 // see: https://github.com/twbs/bootstrap/issues/23590
 Popper.Defaults.modifiers.computeStyle.gpuAcceleration = !(
     window.devicePixelRatio < 1.5 && /Win/.test(navigator.platform)
@@ -25,6 +31,7 @@ Vue.config.productionTip = false
 Vue.prototype.$axios = axios
 Vue.prototype.$moment = moment
 Vue.prototype.$marked = marked
+Vue.prototype.$turndown = turndownService
 
 Vue.use(VueAxios, axios)
 Vue.use(BootstrapVue)
