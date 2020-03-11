@@ -35,7 +35,11 @@
                         ></GlobalResultsbar>
                     </b-nav-form>
 
-                    <b-nav-item-dropdown dropleft text="routes" variant="primary">
+                    <b-nav-item-dropdown
+                        dropleft
+                        text="routes"
+                        variant="primary"
+                    >
                         <template v-slot:button-content>
                             <b-button
                                 :variant="
@@ -43,7 +47,8 @@
                                         ? 'outline-danger'
                                         : 'outline-light'
                                 "
-                            >routes</b-button>
+                                >routes</b-button
+                            >
                         </template>
                         <b-dropdown-item to="/">
                             <span class="shortcut-key">H</span>ome
@@ -54,7 +59,9 @@
                             :to="d.to"
                             :key="index"
                         >
-                            <div v-html="keyHighlight(d.label, d.shortkey)"></div>
+                            <div
+                                v-html="keyHighlight(d.label, d.shortkey)"
+                            ></div>
                         </b-dropdown-item>
                     </b-nav-item-dropdown>
                 </b-navbar-nav>
@@ -140,6 +147,16 @@ export default {
                     to: '/improvisation',
                     shortkey: 'I',
                     label: 'Improv',
+                },
+                {
+                    to: '/description',
+                    shortkey: 'D',
+                    label: 'Description',
+                },
+                {
+                    to: '/position',
+                    shortkey: 'o',
+                    label: 'Position',
                 },
                 {
                     to: '/work',

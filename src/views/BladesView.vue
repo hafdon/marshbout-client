@@ -205,6 +205,10 @@ export default {
                     head: 'notes',
                     body: '',
                 })
+                stuff.push({
+                    head: 'name',
+                    body: '',
+                })
 
                 this.stuff = stuff
                 this.canSubmit = true
