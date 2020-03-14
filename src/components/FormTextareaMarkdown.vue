@@ -1,6 +1,8 @@
 <template>
     <b-card no-body>
-        <template v-slot:header><slot></slot></template>
+        <template v-slot:header>
+            <slot></slot>
+        </template>
         <b-tabs card>
             <b-tab title="Markdown" active>
                 <b-form-textarea
@@ -17,7 +19,7 @@
                     <div v-html="cm"></div>
                 </b-card-text>
             </b-tab>
-            <b-tab title="Turndown Paste">
+            <!-- <b-tab title="Turndown Paste">
                 <b-form-textarea
                     class="form-textarea-markdown"
                     :value="turndown_value"
@@ -29,7 +31,7 @@
                 <b-card-text class="text-left">
                     <div v-html="tmd"></div>
                 </b-card-text>
-            </b-tab>
+            </b-tab>-->
         </b-tabs>
     </b-card>
 </template>

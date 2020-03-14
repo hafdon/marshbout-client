@@ -119,6 +119,18 @@
                         ></PrepForm>
                     </b-card-body>
                 </b-card>
+                <b-card no-body class="p-0">
+                    <template v-slot:header>
+                        <h4 class="text-left">Prep Table</h4>
+                    </template>
+                    <b-card-body>
+                        <ZTable
+                            :fields="table.fields"
+                            :axios="table.axios"
+                            @row-selected="onRowSelected"
+                        ></ZTable>
+                    </b-card-body>
+                </b-card>
             </b-col>
         </b-row>
     </b-container>
@@ -136,6 +148,17 @@ export default {
             prepCheatsheet,
             tooltip_target: null,
             show_tooltips: true,
+            table: {
+                axios: {
+                    url: 'prep',
+                    method: 'get',
+                },
+                fields: [
+                    'session_id',
+                    'session_date',
+                    { key: 'tags', formatter: n => String(n).toString() },
+                ],
+            },
         }
     },
     props: {
@@ -217,6 +240,10 @@ export default {
                 ? item.content
                 : '<link />'
         },
+        onRowSelected(args) {
+            let { row } = args
+            this.$router.push(`/prep/${row.id}`)
+        },
         async togglePrep(item, index) {
             try {
                 // extract the resource prop
@@ -270,11 +297,12 @@ export default {
                 params: this.$route.params,
             })
         },
-        onSubmit() {
+        onSubmit({ data }) {
+            console.log({ data })
             console.log('onSubmit bubbles to prepview', {
                 params: this.$route.params,
             })
-            this.$router.go()
+            this.$router.push('/prep' + (data?.id ? '/' + data.id : ''))
         },
     },
 }

@@ -4,18 +4,14 @@
             <span class="float-left text-left">
                 <b-form-group>
                     <b-button @click="getRandom">push me</b-button>
-                    <b-form-checkbox v-model="blades_faction"
-                        >Use Blades Factions</b-form-checkbox
-                    >
+                    <b-form-checkbox v-model="blades_faction">Use Blades Factions</b-form-checkbox>
                 </b-form-group>
             </span>
         </template>
         <template v-slot:footer>
             <b-form-group>
                 <b-button @click="live = !live">Edit?</b-button>
-                <b-button :disabled="!canSubmit" @click="onSave"
-                    >Save me</b-button
-                >
+                <b-button :disabled="!canSubmit" @click="onSave">Save me</b-button>
             </b-form-group>
         </template>
         <b-card-body>
@@ -27,34 +23,30 @@
             </b-list-group>-->
             <b-form-group v-if="stuff.length" class="text-left m-0 p-0">
                 <b-form class="m-0 p-0">
-                    <b-form-group
-                        class="m-0 p-0"
-                        v-for="(s, index) in stuff"
-                        :key="index"
-                    >
+                    <b-form-group class="m-0 p-0" v-for="(s, index) in stuff" :key="index">
                         <b-row class="m-0 p-0">
-                            <b-col cols="2" class="m-0 px-1"
-                                ><b-button @click="add(index, s.head)"
-                                    >Add</b-button
-                                ><b-button @click="remove(index)"
-                                    >Remove</b-button
-                                ></b-col
-                            >
+                            <b-col cols="2" class="m-0 mr-2 px-1">
+                                <b-button
+                                    size="sm"
+                                    class="mr-2"
+                                    variant="outline-success"
+                                    @click="add(index, s.head)"
+                                >
+                                    <b-icon-plus></b-icon-plus>
+                                </b-button>
+                                <b-button size="sm" variant="outline-danger" @click="remove(index)">
+                                    <b-icon-dash></b-icon-dash>
+                                </b-button>
+                            </b-col>
                             <b-col cols="2" class="m-0 px-1">
                                 <div class="text-right m-0 p-0">
                                     <label class="m-0 p-0">
-                                        <strong class="m-0 p-0">
-                                            {{ s.head }}
-                                        </strong>
+                                        <strong class="m-0 p-0">{{ s.head }}</strong>
                                     </label>
                                 </div>
                             </b-col>
                             <b-col class="m-0 px-1">
-                                <b-form-input
-                                    class="m-0 p-0"
-                                    v-model="s.body"
-                                    :plaintext="!live"
-                                ></b-form-input>
+                                <b-form-input class="m-0 p-0" v-model="s.body" :plaintext="!live"></b-form-input>
                             </b-col>
                         </b-row>
                     </b-form-group>

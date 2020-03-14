@@ -35,11 +35,7 @@
                         ></GlobalResultsbar>
                     </b-nav-form>
 
-                    <b-nav-item-dropdown
-                        dropleft
-                        text="routes"
-                        variant="primary"
-                    >
+                    <b-nav-item-dropdown dropleft text="routes" variant="primary">
                         <template v-slot:button-content>
                             <b-button
                                 :variant="
@@ -47,8 +43,7 @@
                                         ? 'outline-danger'
                                         : 'outline-light'
                                 "
-                                >routes</b-button
-                            >
+                            >routes</b-button>
                         </template>
                         <b-dropdown-item to="/">
                             <span class="shortcut-key">H</span>ome
@@ -59,9 +54,7 @@
                             :to="d.to"
                             :key="index"
                         >
-                            <div
-                                v-html="keyHighlight(d.label, d.shortkey)"
-                            ></div>
+                            <div v-html="keyHighlight(d.label, d.shortkey)"></div>
                         </b-dropdown-item>
                     </b-nav-item-dropdown>
                 </b-navbar-nav>
@@ -133,11 +126,11 @@ export default {
             breadcrumbs: [],
             threebox: null,
             dropdown_links: [
-                {
-                    to: '/combat-tracker',
-                    shortkey: 'T',
-                    label: 'Combat Tracker',
-                },
+                // {
+                //     to: '/combat-tracker',
+                //     shortkey: 'T',
+                //     label: 'Combat Tracker',
+                // },
                 {
                     to: '/prep',
                     shortkey: 'P',
@@ -191,11 +184,11 @@ export default {
                 {
                     to: '/lexeme',
                     shortkey: 'x',
-                    label: 'Lexems',
+                    label: 'Lexemes',
                 },
                 {
                     to: '/location',
-                    shortkey: 'l',
+                    shortkey: 'L',
                     label: 'Locations',
                 },
                 {
@@ -207,6 +200,11 @@ export default {
                     to: '/npc',
                     shortkey: 'N',
                     label: 'NPCs',
+                },
+                {
+                    to: '/transcript',
+                    shortkey: 'r',
+                    label: 'Transcripts',
                 },
             ],
         }
@@ -278,6 +276,7 @@ export default {
                 o: 'position',
                 a: 'blades',
                 g: 'settings',
+                r: 'transcript',
             }
             return hash[key.toLowerCase()] || null
         },

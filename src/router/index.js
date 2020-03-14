@@ -15,37 +15,41 @@ const routes = [
         path: '/settings',
         name: 'Settings',
         component: () =>
-            import(/* webpackChunkName: "prep" */ '../views/SettingsView.vue'),
+            import(
+                /* webpackChunkName: "settings" */ '../views/SettingsView.vue'
+            ),
         props: true,
     },
     {
         path: '/blades',
         name: 'Blades',
         component: () =>
-            import(/* webpackChunkName: "prep" */ '../views/BladesView.vue'),
+            import(/* webpackChunkName: "blades" */ '../views/BladesView.vue'),
         props: true,
     },
     {
         path: '/lexeme/:id?',
         name: 'Lexeme',
         component: () =>
-            import(/* webpackChunkName: "prep" */ '../views/LexemeView.vue'),
+            import(/* webpackChunkName: "lexeme" */ '../views/LexemeView.vue'),
         props: true,
     },
-    {
-        path: '/combat-tracker/:id?',
-        name: 'CombatTracker',
-        component: () =>
-            import(
-                /* webpackChunkName: "prep" */ '../views/CombatTrackerView.vue'
-            ),
-        props: true,
-    },
+    // {
+    //     path: '/combat-tracker/:id?',
+    //     name: 'CombatTracker',
+    //     component: () =>
+    //         import(
+    //             /* webpackChunkName: "prep" */ '../views/CombatTrackerView.vue'
+    //         ),
+    //     props: true,
+    // },
     {
         path: '/recording/:id?',
         name: 'Recording',
         component: () =>
-            import(/* webpackChunkName: "prep" */ '../views/RecordingView.vue'),
+            import(
+                /* webpackChunkName: "recording" */ '../views/RecordingView.vue'
+            ),
         props: true,
     },
     {
@@ -54,54 +58,27 @@ const routes = [
         component: () =>
             import(/* webpackChunkName: "prep" */ '../views/PrepView.vue'),
         props: true,
-
-        // children: [
-        //     {
-        //         path: ':id',
-        //         component: () =>
-        //             import(
-        //                 /* webpackChunkName: "improvisation" */ '../components/PrepForm.vue'
-        //             ),
-        //         props: true,
-        //     },
-        //     {
-        //         path: '',
-        //         name: 'Prep',
-        //         component: () =>
-        //             import(
-        //                 /* webpackChunkName: "prep" */ '../views/PrepView.vue'
-        //             ),
-        //     },
-        // ],
     },
     {
         path: '/improvisation',
         name: 'Improvisation',
+
         component: () =>
             import(
                 /* webpackChunkName: "improvisation" */ '../views/ImprovisationView.vue'
             ),
     },
     {
-        path: '/work/:id',
+        path: '/work/:id?',
 
         props: true,
 
         component: () =>
             import(/* webpackChunkName: "work" */ '../views/WorkView.vue'),
     },
+
     {
-        path: '/work',
-        name: 'Work',
-        props: false,
-        // route level code-splitting
-        // this generates a separate chunk (continuity.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () =>
-            import(/* webpackChunkName: "work" */ '../views/WorkView.vue'),
-    },
-    {
-        path: '/npc/:id',
+        path: '/npc/:id?',
 
         props: true,
         // route level code-splitting
@@ -110,18 +87,9 @@ const routes = [
         component: () =>
             import(/* webpackChunkName: "npc" */ '../views/NpcView.vue'),
     },
+
     {
-        path: '/npc',
-        name: 'NPC',
-        props: false,
-        // route level code-splitting
-        // this generates a separate chunk (continuity.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () =>
-            import(/* webpackChunkName: "npc" */ '../views/NpcView.vue'),
-    },
-    {
-        path: '/faction/:id',
+        path: '/faction/:id?',
 
         props: true,
         // route level code-splitting
@@ -132,34 +100,11 @@ const routes = [
                 /* webpackChunkName: "faction" */ '../views/FactionView.vue'
             ),
     },
+
     {
-        path: '/faction',
-        name: 'Faction',
-        props: false,
-        // route level code-splitting
-        // this generates a separate chunk (continuity.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () =>
-            import(
-                /* webpackChunkName: "faction" */ '../views/FactionView.vue'
-            ),
-    },
-    {
-        path: '/description/:id',
+        path: '/description/:id?',
 
         props: true,
-        // route level code-splitting
-        // this generates a separate chunk (continuity.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () =>
-            import(
-                /* webpackChunkName: "description" */ '../views/DescriptionView.vue'
-            ),
-    },
-    {
-        path: '/description',
-        name: 'Description',
-        props: false,
         // route level code-splitting
         // this generates a separate chunk (continuity.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
@@ -179,22 +124,11 @@ const routes = [
         component: () =>
             import(/* webpackChunkName: "bible" */ '../views/BibleView.vue'),
     },
-    {
-        path: '/transcript/:id',
 
-        props: true,
-        // route level code-splitting
-        // this generates a separate chunk (continuity.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () =>
-            import(
-                /* webpackChunkName: "transcript" */ '../views/TranscriptView.vue'
-            ),
-    },
     {
-        path: '/transcript',
+        path: '/transcript/:id?',
         name: 'Transcript',
-        props: false,
+        props: true,
         // route level code-splitting
         // this generates a separate chunk (continuity.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
@@ -204,7 +138,7 @@ const routes = [
             ),
     },
     {
-        path: '/location/:id',
+        path: '/location/:id?',
 
         props: true,
         // route level code-splitting
@@ -215,32 +149,9 @@ const routes = [
                 /* webpackChunkName: "location" */ '../views/LocationView.vue'
             ),
     },
+
     {
-        path: '/location',
-        name: 'Location',
-        props: false,
-        // route level code-splitting
-        // this generates a separate chunk (continuity.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () =>
-            import(
-                /* webpackChunkName: "location" */ '../views/LocationView.vue'
-            ),
-    },
-    {
-        path: '/position',
-        name: 'Position',
-        props: false,
-        // route level code-splitting
-        // this generates a separate chunk (continuity.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () =>
-            import(
-                /* webpackChunkName: "position" */ '../views/PositionView.vue'
-            ),
-    },
-    {
-        path: '/position/:id',
+        path: '/position/:id?',
 
         props: true,
         // route level code-splitting
@@ -253,19 +164,7 @@ const routes = [
     },
 
     {
-        path: '/clock',
-        name: 'Clock',
-        props: false,
-        // route level code-splitting
-        // this generates a separate chunk (continuity.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () =>
-            import(
-                /* webpackChunkName: "clock" */ '../views/FactionClockView.vue'
-            ),
-    },
-    {
-        path: '/clock/:id',
+        path: '/clock/:id?',
 
         props: true,
         // route level code-splitting
@@ -278,9 +177,9 @@ const routes = [
     },
 
     {
-        path: '/recap',
+        path: '/recap/:id?',
         name: 'Recap',
-        props: false,
+        props: true,
         // route level code-splitting
         // this generates a separate chunk (continuity.[hash].js) for this route
         // which is lazy-loaded when the route is visited.

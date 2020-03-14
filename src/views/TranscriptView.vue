@@ -1,16 +1,18 @@
 <template>
     <b-container fluid>
         <b-row>
-            <b-col xs="12" lg="6">
+            <b-col xs="12" xl="6">
                 <b-card no-body bg-variant="light">
                     <b-card-body>
-                        <TranscriptForm
+                        <ZForm
                             :id="selected_id"
                             @cancel="onCancel"
                             @submit="onSubmit"
                             @remove="onRemove"
                             :axios="{ url: 'transcript' }"
-                        ></TranscriptForm>
+                            :controls="zform.controls"
+                            :blank-form="zform.form"
+                        ></ZForm>
                     </b-card-body>
                 </b-card>
             </b-col>
@@ -37,7 +39,7 @@
 </template>
 
 <script>
-import TranscriptForm from '@/components/TranscriptForm.vue'
+// import TranscriptForm from '@/components/TranscriptForm.vue'
 import ZTable from '@/components/ZTable.vue'
 
 export default {
@@ -71,10 +73,34 @@ export default {
                 { key: 'session_date', sortable: true },
             ],
             tableFilter: '',
+            zform: {
+                controls: {
+                    form_textarea: [
+                        { label: 'body', rows: 30, type: 'markdown' },
+                    ],
+                    form_input: [
+                        { label: 'session_date', type: 'date' },
+                        { label: 'session_id', type: 'number' },
+                        { label: 'level' },
+                        { label: 'game_day' },
+                    ],
+                    form_tags: [{ label: 'tags' }],
+                    form_checkbox: [{ label: 'prep' }],
+                },
+                form: {
+                    body: '',
+                    session_date: '',
+                    tags: [],
+                    prep: false,
+                    session_id: null,
+                    level: null,
+                    game_day: '',
+                },
+            },
         }
     },
     components: {
-        TranscriptForm,
+        // TranscriptForm,
         ZTable,
     },
     created() {
@@ -85,10 +111,11 @@ export default {
     },
     methods: {
         onRowSelected({ row }) {
-            this.selected_id = row?.id
+            // this.selected_id = row?.id
+            this.$router.push('/transcript/' + row.id)
         },
         onCancel() {
-            this.selected_id = undefined
+            this.$router.push('/transcript')
         },
         onSubmit() {
             this.refreshList()

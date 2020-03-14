@@ -52,8 +52,9 @@ export default {
                 form_tags: [{ label: 'tags' }],
                 form_input: [
                     { label: 'session_id', type: 'number' },
-                    { label: 'session_date', type: 'date' },
+                    // { label: 'session_date', type: 'date' },
                 ],
+                form_datepicker: [{ label: 'session_date', resetButton: true }],
             },
             form: {
                 name: '',

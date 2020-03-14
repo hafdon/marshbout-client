@@ -7,10 +7,14 @@
                 v-for="(c, index) in controls.form_checkbox"
                 :key="`checkbox_${index}`"
                 v-model="form[c.label]"
-            >{{ c.label }}</b-form-checkbox>
+                >{{ c.label }}</b-form-checkbox
+            >
         </div>
 
-        <b-form-group v-for="(c, index) in controls.form_tags" :key="`tags_${index}`">
+        <b-form-group
+            v-for="(c, index) in controls.form_tags"
+            :key="`tags_${index}`"
+        >
             <!-- <div>
                 <label :for="`form_tag_${index}`" class="float-left">{{
                     c.label
@@ -27,15 +31,39 @@
             ></b-form-tags>
         </b-form-group>
 
-        <b-form-group v-for="(c, index) in controls.form_input" :key="`input_${index}`">
-            <label class="float-left">{{ c.label }}</label>
-            <b-form-input :type="c.type" v-model="form[c.label]" :rows="c.rows"></b-form-input>
+        <b-form-group
+            v-for="(c, index) in controls.form_datepicker"
+            :key="`datepicker_${index}`"
+        >
+            <b-form-datepicker
+                v-model="form[c.label]"
+                :reset-button="c.resetButton"
+            ></b-form-datepicker>
         </b-form-group>
 
-        <b-form-group v-for="(c, index) in controls.form_textarea" :key="`textarea_${index}`">
+        <b-form-group
+            v-for="(c, index) in controls.form_input"
+            :key="`input_${index}`"
+        >
+            <label class="float-left">{{ c.label }}</label>
+            <b-form-input
+                :type="c.type"
+                v-model="form[c.label]"
+                :rows="c.rows"
+            ></b-form-input>
+        </b-form-group>
+
+        <b-form-group
+            v-for="(c, index) in controls.form_textarea"
+            :key="`textarea_${index}`"
+        >
             <template v-if="!c.type">
                 <label class="float-left">{{ c.label }}</label>
-                <b-form-textarea v-if="!c.type" v-model="form[c.label]" :rows="c.rows"></b-form-textarea>
+                <b-form-textarea
+                    v-if="!c.type"
+                    v-model="form[c.label]"
+                    :rows="c.rows"
+                ></b-form-textarea>
             </template>
             <template v-if="c.type === 'markdown'">
                 <form-textarea-markdown v-model="form[c.label]" :rows="c.rows">
@@ -45,16 +73,34 @@
         </b-form-group>
 
         <span v-if="id" class="float-left">
-            <b-button @click="onCancel" variant="outline-dark" class="mr-2">Cancel</b-button>
-            <b-button disabled @click="onSaveAsNew" variant="outline-success">Save as new</b-button>
+            <b-button
+                @click.stop.prevent="onCancel"
+                variant="outline-dark"
+                class="mr-2"
+                >Cancel</b-button
+            >
+            <b-button
+                disabled
+                @click.stop.prevent="onSaveAsNew"
+                variant="outline-success"
+                >Save as new</b-button
+            >
         </span>
         <span v-if="id" class="float-right">
-            <b-button type="submit" variant="primary" class="mr-2">Save</b-button>
-            <b-button @click="onRemove" variant="outline-danger">Remove</b-button>
+            <b-button type="submit" variant="primary" class="mr-2"
+                >Save</b-button
+            >
+            <b-button @click.stop.prevent="onRemove" variant="outline-danger"
+                >Remove</b-button
+            >
         </span>
         <span v-if="!id" class="float-right">
-            <b-button type="submit" variant="primary" class="mr-2">Submit</b-button>
-            <b-button @click="onCancel" variant="outline-danger">Cancel</b-button>
+            <b-button type="submit" variant="primary" class="mr-2"
+                >Submit</b-button
+            >
+            <b-button @click.stop.prevent="onCancel" variant="outline-danger"
+                >Cancel</b-button
+            >
         </span>
     </b-form>
 </template>
@@ -283,7 +329,10 @@ export default {
                     })
                     this.clearForm()
 
-                    this.$emit('submit', { form: this.form })
+                    this.$emit('submit', {
+                        form: this.form,
+                        data: results.data,
+                    })
                 }
             } catch (e) {
                 console.log(e)
