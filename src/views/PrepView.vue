@@ -111,7 +111,7 @@
                     </template>
                     <b-card-body>
                         <PrepForm
-                            :id="$route.params.id"
+                            :id="formId"
                             @error="onError"
                             @cancel="onCancel"
                             @clear="onClear"
@@ -159,6 +159,7 @@ export default {
                     { key: 'tags', formatter: n => String(n).toString() },
                 ],
             },
+            formId: null,
         }
     },
     props: {
@@ -178,6 +179,10 @@ export default {
                 console.log({ items: { val, old } })
                 return
             },
+        },
+        // eslint-disable-next-line no-unused-vars
+        $route(to, from) {
+            this.formId = to.params.id
         },
     },
     mounted() {
@@ -302,7 +307,7 @@ export default {
             console.log('onSubmit bubbles to prepview', {
                 params: this.$route.params,
             })
-            this.$router.push('/prep' + (data?.id ? '/' + data.id : ''))
+            this.formId = data.id
         },
     },
 }

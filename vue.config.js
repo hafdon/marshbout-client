@@ -1,3 +1,5 @@
+const path = require('path')
+
 // vue.config.js
 module.exports = {
     chainWebpack: config => {
@@ -19,4 +21,5 @@ module.exports = {
         // .loader('markdown-it-footnote')
         // .end()
     },
+    outputDir: process.env.OUTPUT_DIR,
 }

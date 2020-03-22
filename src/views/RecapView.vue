@@ -35,6 +35,7 @@
 import session001 from '@/assets/recaps/session001.md'
 import session002 from '@/assets/recaps/session002.md'
 import session017 from '@/assets/recaps/session017.md'
+import session019 from '@/assets/recaps/session019.md'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -53,11 +54,10 @@ export default {
                 { name: 'session 1', md: session001 },
                 { name: 'session 2', md: session002 },
                 { name: 'session 17', md: session017 },
+                { name: 'session 19', md: session019 },
             ],
             fields: [{ key: 'name', label: 'Session' }],
             selected: null,
-            // textarea: '<h1>hi there</h1>',
-            // edit: false,
         }
     },
     computed: {

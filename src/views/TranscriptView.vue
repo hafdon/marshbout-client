@@ -79,13 +79,15 @@ export default {
                         { label: 'body', rows: 30, type: 'markdown' },
                     ],
                     form_input: [
-                        { label: 'session_date', type: 'date' },
                         { label: 'session_id', type: 'number' },
                         { label: 'level' },
                         { label: 'game_day' },
                     ],
                     form_tags: [{ label: 'tags' }],
                     form_checkbox: [{ label: 'prep' }],
+                    form_datepicker: [
+                        { label: 'session_date', resetButton: true },
+                    ],
                 },
                 form: {
                     body: '',
