@@ -1,6 +1,7 @@
 <template>
     <b-form @submit.stop.prevent="onSubmit" @change.stop.prevent="onChange">
         <slot></slot>
+        <div><b-badge variant="danger">Using Zform</b-badge></div>
         <div>{{ formAddons }}</div>
         <div class="text-right mb-1">
             <b-form-checkbox
@@ -106,7 +107,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 export default {
     name: 'ZForm',
     props: {
@@ -161,31 +162,44 @@ export default {
                     // if they do want to discard changes (result = true)
                     // then act like the form's not dirty
 
-                    // TODO: fix inability to actually change the "id" prop here?
+                    // if they don't want to discard changes (i.e. they want to
+                    // stay on the page), then abort what is happening
                     if (this.dirty) {
                         let results = false
                         {
                             results = window.confirm(
-                                'You have unsaved changes. Click "ok zform" to discard changes.'
+                                'You have unsaved changes. Click OK to discard changes.'
                             )
                             console.log({ results })
+                            // if they said OK (that is, discard changes)
                             if (results) {
                                 console.log({ makingthingsclean: results })
+                                // act like it's clean
                                 this.makeClean()
+                            }
+                            // if they said "don't discard changes"
+                            else {
+                                //
                             }
                         }
                     }
-                    console.log(
-                        `about to test if this.clean is true, and it's ${this.clean}`
-                    )
+
+                    // if we're acting like it's clean
                     if (this.clean) {
                         console.log({ clean: this.clean, val })
+                        // if there's an id
                         if (val) {
+                            // fill the form with that id info
                             this.getById(val)
+                            // treat form as clean
                             this.makeClean()
                         } else {
+                            //if there's not a val ('undefined', etc)
                             this.clearForm()
                         }
+                        // if we're acting like it's dirty
+                    } else {
+                        // halt the router
                     }
                 } catch (e) {
                     console.log(e)
@@ -245,6 +259,7 @@ export default {
     },
     methods: {
         ...mapMutations({ makeDirty: 'makeDirty', makeClean: 'makeClean' }),
+        ...mapActions({ confirmOk: 'confirmOk' }),
         async getById(id) {
             let results
             try {
@@ -266,8 +281,22 @@ export default {
             }
         },
 
-        onCancel() {
-            this.$emit('cancel')
+        async onCancel() {
+            try {
+                if (
+                    this.dirty &&
+                    window.confirm(
+                        'You have unsaved changes. Click OK to discard them.'
+                    )
+                ) {
+                    this.makeClean()
+                }
+                if (this.clean) {
+                    this.$emit('cancel')
+                }
+            } catch (e) {
+                console.log(e)
+            }
         },
         onChange() {
             this.makeDirty()
@@ -327,7 +356,13 @@ export default {
                         variant: 'success',
                         toaster: 'b-toaster-bottom-right',
                     })
-                    this.clearForm()
+
+                    // Don't clear form anymore; let form stay populated
+                    // this.clearForm()
+
+                    // indicate that form is not "dirty" and
+                    // has been saved
+                    this.makeClean()
 
                     this.$emit('submit', {
                         form: this.form,
