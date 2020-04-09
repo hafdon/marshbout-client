@@ -1,5 +1,5 @@
 <template>
-    <b-container fluid>
+    <!-- <b-container fluid>
         <b-row>
             <b-col xs="12" lg="6">
                 <b-card no-body bg-variant="light">
@@ -29,45 +29,41 @@
                             @row-selected="onRowSelected"
                             :filter="tableFilter"
                             sticky-header="750px"
+                            :initial-field-options="fieldOptions"
                         />
                     </b-card-body>
                 </b-card>
             </b-col>
         </b-row>
-    </b-container>
+    </b-container>-->
+    <ZView
+        :table-filter="tableFilter"
+        :blank-form="form"
+        :axios="axios"
+        :controls="controls"
+        :fields="fields"
+        :selectedURL="axios.url"
+        :initial-field-options="fieldOptions"
+    ></ZView>
 </template>
 
 <script>
-import ZForm from '@/components/ZForm.vue'
-import ZTable from '@/components/ZTable.vue'
-
 export default {
-    name: 'Work',
-    props: {
-        id: {
-            required: false,
-            default: undefined,
-        },
-    },
-    watch: {
-        id: {
-            immediate: true,
-            handler: function(val, old) {
-                console.log({ workview: { id: { val, old } } })
-                this.selected_id = +val
-                return
-            },
-        },
-    },
+    name: 'WorkView',
+
     data() {
         return {
-            selected_id: undefined,
             axios: {
                 url: 'work',
                 method: 'get',
                 data: {},
             },
-            fields: [{ key: 'title', sortable: true }, 'contributor'],
+            fields: [
+                { key: 'title', sortable: true },
+                { key: 'contributor' },
+                { key: 'tags', formatter: n => (n ? n.toString() : '') },
+                { key: 'real', sortable: true },
+            ],
             tableFilter: '',
             form: {
                 title: '',
@@ -78,13 +74,15 @@ export default {
                 attune: null,
                 prep: null,
                 etools: null,
+                real: null,
                 tags: [],
             },
+            fieldOptions: ['title', 'contributor'],
             controls: {
                 form_textarea: [
                     { label: 'title' },
                     { label: 'description', rows: 4 },
-                    { label: 'contents', rows: 4 },
+                    { label: 'contents', rows: 4, type: 'markdown' },
                     { label: 'mechanics', rows: 4 },
                 ],
                 form_tags: [{ label: 'tags' }],
@@ -93,38 +91,22 @@ export default {
                     { label: 'prep' },
                     { label: 'etools' },
                     { label: 'attune' },
+                    { label: 'real' },
                 ],
             },
         }
     },
     components: {
-        ZForm,
-        ZTable,
+        // ZForm,
+        // ZTable,
     },
     created() {
         console.log('WorkView created')
     },
     mounted() {
-        document.title = 'Work'
+        document.title = 'Works'
     },
-    methods: {
-        onRowSelected({ row }) {
-            this.selected_id = row?.id
-        },
-        onCancel() {
-            this.selected_id = undefined
-        },
-        onSubmit() {
-            this.refreshList()
-        },
-        onRemove() {
-            this.refreshList()
-        },
-
-        refreshList() {
-            this.$refs.worklist.loadItems()
-        },
-    },
+    methods: {},
 }
 </script>
 

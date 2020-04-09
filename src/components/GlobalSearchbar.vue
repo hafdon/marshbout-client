@@ -35,10 +35,17 @@ export default {
                         url: '/db',
                     })
 
+                    //TODO: we're already getting all the data here anyway;
+                    // think about just ... using that
+                    let searchableResources = Object.getOwnPropertyNames(db)
+
+                    delete searchableResources.lexeme
+
                     let items = [],
                         axios = this.$axios
                     await Promise.all(
-                        Object.getOwnPropertyNames(db).map(async resource => {
+                        searchableResources.map(async resource => {
+                            console.log({ resource })
                             let { data } = await axios.request({
                                 method: 'get',
                                 url: `/${resource}/?q=${query}`,

@@ -1,8 +1,11 @@
 <template>
     <b-container id="app" fluid>
-        <b-navbar variant="dark" type="light" class="mb-4">
+        <b-navbar variant="dark" type="light" class="mb-4 p-1">
             <!-- <b-navbar-brand href="#">rpg.tools</b-navbar-brand> -->
             <b-navbar-nav>
+                <b-nav-item>
+                    <b-avatar size="2em"></b-avatar>
+                </b-nav-item>
                 <b-nav-item>
                     <b-icon-gear-fill
                         @click="$router.push('/settings')"
@@ -35,7 +38,11 @@
                         ></GlobalResultsbar>
                     </b-nav-form>
 
-                    <b-nav-item-dropdown dropleft text="routes" variant="primary">
+                    <b-nav-item-dropdown
+                        dropleft
+                        text="routes"
+                        variant="primary"
+                    >
                         <template v-slot:button-content>
                             <b-button
                                 :variant="
@@ -43,7 +50,8 @@
                                         ? 'outline-danger'
                                         : 'outline-light'
                                 "
-                            >routes</b-button>
+                                >routes</b-button
+                            >
                         </template>
                         <b-dropdown-item to="/">
                             <span class="shortcut-key">H</span>ome
@@ -54,7 +62,9 @@
                             :to="d.to"
                             :key="index"
                         >
-                            <div v-html="keyHighlight(d.label, d.shortkey)"></div>
+                            <div
+                                v-html="keyHighlight(d.label, d.shortkey)"
+                            ></div>
                         </b-dropdown-item>
                     </b-nav-item-dropdown>
                 </b-navbar-nav>
@@ -62,6 +72,13 @@
         </b-navbar>
 
         <router-view class="m-0 p-0" />
+        <!-- <iframe
+            src="https://discordapp.com/widget?id=688215680667222086&theme=dark"
+            width="350"
+            height="500"
+            allowtransparency="true"
+            frameborder="0"
+        ></iframe> -->
     </b-container>
 </template>
 <script>
@@ -110,6 +127,8 @@ export default {
             controlpressed: 'controlpressed',
             dirty: 'dirty',
             clean: 'clean',
+            parseSelection: 'parseSelection',
+            getAutoHideDelay: 'getAutoHideDelay',
         }),
         DropdownLinks() {
             return this.dropdown_links
@@ -119,6 +138,7 @@ export default {
                 })
         },
     },
+    created() {},
     data() {
         return {
             search_items: [],
@@ -126,11 +146,11 @@ export default {
             breadcrumbs: [],
             threebox: null,
             dropdown_links: [
-                // {
-                //     to: '/combat-tracker',
-                //     shortkey: 'T',
-                //     label: 'Combat Tracker',
-                // },
+                {
+                    to: '/combat-tracker',
+                    shortkey: 'T',
+                    label: 'Combat Tracker',
+                },
                 {
                     to: '/prep',
                     shortkey: 'P',
@@ -191,11 +211,11 @@ export default {
                     shortkey: 'L',
                     label: 'Locations',
                 },
-                {
-                    to: '/settings',
-                    shortkey: 'g',
-                    label: 'Settings',
-                },
+                // {
+                //     to: '/settings',
+                //     shortkey: 'g',
+                //     label: 'Settings',
+                // },
                 {
                     to: '/npc',
                     shortkey: 'N',
@@ -229,6 +249,19 @@ export default {
             makeDirty: 'makeDirty',
             makeClean: 'makeClean',
         }),
+        computeDieRoll() {
+            let result = this.parseSelection(window.getSelection())
+            this.$bvToast.toast(result, {
+                title: `Roll results: ${
+                    /^.*:?.*:[\s]*([\d]+)[\s]*$/.exec(result)[1]
+                }`,
+                autoHideDelay: this.getAutoHideDelay,
+                static: true,
+                toastClass: 'large-toast',
+                bodyClass: 'large-toast',
+                headerClass: 'large-toast',
+            })
+        },
         setFocus: function(ref) {
             // Note, you need to add a ref="search" attribute to your input.
             this.$refs[ref].focus()
@@ -262,7 +295,7 @@ export default {
             console.log({ hash1 })
 
             let hash = {
-                t: '',
+                t: 'combat-tracker',
                 n: 'npc',
                 l: 'location',
                 f: 'faction',
@@ -288,6 +321,8 @@ export default {
                 if (this.controlpressed) {
                     if (/s/i.exec(key) !== null) {
                         this.setFocus('globalsearchbar')
+                    } else if (/i/i.exec(key) !== null) {
+                        this.computeDieRoll()
                     } else if (this.handleControlPressed(key) !== null) {
                         this.$router.push('/' + this.handleControlPressed(key))
                     }
@@ -340,5 +375,9 @@ export default {
 .shortcut-key {
     text-decoration: underline;
     font-weight: bold;
+}
+.large-toast {
+    font-size: 1.25rem;
+    width: 200%;
 }
 </style>

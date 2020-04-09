@@ -6,7 +6,11 @@
                     <label for="input-pc">PC name</label>
                 </b-col>
                 <b-col xs="12">
-                    <b-form-input v-model="form.pc_name" id="input-pc" type="text"></b-form-input>
+                    <b-form-input
+                        v-model="form.pc_name"
+                        id="input-pc"
+                        type="text"
+                    ></b-form-input>
                 </b-col>
             </b-row>
         </b-form-group>
@@ -16,7 +20,11 @@
                     <label for="input-roll">Rolled</label>
                 </b-col>
                 <b-col xs="12">
-                    <b-form-input v-model="form.rolled" id="input-roll" type="number"></b-form-input>
+                    <b-form-input
+                        v-model="form.rolled"
+                        id="input-roll"
+                        type="number"
+                    ></b-form-input>
                 </b-col>
             </b-row>
 
@@ -29,7 +37,10 @@
         <b-form-group>
             <label for="textarea-notes">Notes</label>
 
-            <b-form-textarea v-model="form.notes" id="textarea-notes"></b-form-textarea>
+            <b-form-textarea
+                v-model="form.notes"
+                id="textarea-notes"
+            ></b-form-textarea>
         </b-form-group>
 
         <b-button type="submit">Submit</b-button>

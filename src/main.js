@@ -14,11 +14,20 @@ import ZTable from '@/components/ZTable.vue'
 import ZView from '@/views/ZView.vue'
 import FormTextareaMarkdown from '@/components/FormTextareaMarkdown.vue'
 import marked from 'marked'
+import { evaluate } from 'mathjs'
 
 import TurndownService from 'turndown'
+// import vueFabricWrapper from 'vue-fabric-wrapper'
+// import * as VueWindow from '@hscmap/vue-window'
+// import Moveable from 'vue-moveable'
 
 // https://github.com/domchristie/turndown
-const turndownService = new TurndownService()
+const turndownService = new TurndownService().addRule('div_to_break', {
+    filter: ['div'],
+    replacement: function(content) {
+        return '  \n' + content + '  \n'
+    },
+})
 // var markdown = turndownService.turndown('<h1>Hello world!</h1>')
 
 // see: https://github.com/twbs/bootstrap/issues/23590
@@ -32,16 +41,24 @@ Vue.prototype.$axios = axios
 Vue.prototype.$moment = moment
 Vue.prototype.$marked = marked
 Vue.prototype.$turndown = turndownService
+Vue.prototype.$eval = evaluate
 
 Vue.use(VueAxios, axios)
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
+// Vue.use(VueWindow)
+// Vue.use(Moveable)
 
 Vue.component('Threebox', Threebox)
 Vue.component('ZForm', ZForm)
 Vue.component('ZTable', ZTable)
 Vue.component('ZView', ZView)
 Vue.component('FormTextareaMarkdown', FormTextareaMarkdown)
+// Vue.component('FabricCanvas', vueFabricWrapper.FabricCanvas)
+// Vue.component('FabricLine', vueFabricWrapper.FabricLine)
+// Vue.component('FabricCircle', vueFabricWrapper.FabricCircle)
+// Vue.component('FabricRectangle', vueFabricWrapper.FabricRectangle)
+// Vue.component('FabricDotGrid', vueFabricWrapper.FabricDotGrid)
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'

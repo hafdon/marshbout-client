@@ -7,7 +7,6 @@
     </b-card>
 </template>
 
-
 <script>
 export default {
     name: 'CombatTracker',
@@ -17,5 +16,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>

@@ -3,7 +3,8 @@ import axios from 'axios'
 axios.defaults.withCredentials = true
 
 const instance = axios.create({
-    baseURL: 'http://10.0.1.7:3000',
+    baseURL: 'http://localhost:3000',
+    // baseURL: 'http://10.0.1.7:3000',
     // withCredentials: true,
 })
 

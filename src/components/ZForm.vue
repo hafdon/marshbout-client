@@ -1,7 +1,7 @@
 <template>
     <b-form @submit.stop.prevent="onSubmit" @change.stop.prevent="onChange">
         <slot></slot>
-        <div><b-badge variant="danger">Using Zform</b-badge></div>
+
         <div>{{ formAddons }}</div>
         <div class="text-right mb-1">
             <b-form-checkbox
@@ -51,8 +51,30 @@
                 :type="c.type"
                 v-model="form[c.label]"
                 :rows="c.rows"
+                :class="c.labelClass ? c.labelClass : ''"
+                lazy-formatter
+                :formatter="
+                    typeof c.formatter === 'function' ? c.formatter : n => n
+                "
             ></b-form-input>
         </b-form-group>
+
+        <b-form-row>
+            <b-form-group
+                v-for="(c, index) in controls.form_spinbutton"
+                :key="`input_${index}`"
+                class="mr-3"
+            >
+                <label class="float-left pr-2">{{ c.label }}</label>
+                <b-form-spinbutton
+                    v-model="form[c.label]"
+                    :class="c.controlClass ? c.controlClass : ''"
+                    inline
+                    style="width: 10rem;"
+                    min="0"
+                ></b-form-spinbutton>
+            </b-form-group>
+        </b-form-row>
 
         <b-form-group
             v-for="(c, index) in controls.form_textarea"
@@ -64,6 +86,7 @@
                     v-if="!c.type"
                     v-model="form[c.label]"
                     :rows="c.rows"
+                    :class="c.controlClass ? c.controlClass : ''"
                 ></b-form-textarea>
             </template>
             <template v-if="c.type === 'markdown'">
@@ -157,54 +180,17 @@ export default {
             // eslint-disable-next-line no-unused-vars
             handler: async function(val, old) {
                 console.log({ watch_id: { val, old } })
-                try {
-                    // if the form is dirty, ask if they want to discard changes
-                    // if they do want to discard changes (result = true)
-                    // then act like the form's not dirty
 
-                    // if they don't want to discard changes (i.e. they want to
-                    // stay on the page), then abort what is happening
-                    if (this.dirty) {
-                        let results = false
-                        {
-                            results = window.confirm(
-                                'You have unsaved changes. Click OK to discard changes.'
-                            )
-                            console.log({ results })
-                            // if they said OK (that is, discard changes)
-                            if (results) {
-                                console.log({ makingthingsclean: results })
-                                // act like it's clean
-                                this.makeClean()
-                            }
-                            // if they said "don't discard changes"
-                            else {
-                                //
-                            }
-                        }
-                    }
-
-                    // if we're acting like it's clean
-                    if (this.clean) {
-                        console.log({ clean: this.clean, val })
-                        // if there's an id
-                        if (val) {
-                            // fill the form with that id info
-                            this.getById(val)
-                            // treat form as clean
-                            this.makeClean()
-                        } else {
-                            //if there's not a val ('undefined', etc)
-                            this.clearForm()
-                        }
-                        // if we're acting like it's dirty
-                    } else {
-                        // halt the router
-                    }
-                } catch (e) {
-                    console.log(e)
+                if (val) {
+                    // fill the form with that id info
+                    await this.getById(val)
+                    // treat form as clean
+                    this.makeClean()
+                } else {
+                    //if there's not a val ('undefined', etc)
+                    this.clearForm()
                 }
-                console.log({ now_id: this.id })
+
                 return
             },
         },
@@ -223,7 +209,8 @@ export default {
                 document.title =
                     this.axios.url +
                     (this.form?.name ? ': ' + this.form?.name : '')
-                this.$emit('change', { form: val })
+                console.log('form change in zform')
+                this.$emit('update', { form: val })
                 return
             },
         },
@@ -289,7 +276,7 @@ export default {
                         'You have unsaved changes. Click OK to discard them.'
                     )
                 ) {
-                    this.makeClean()
+                    this.clearForm()
                 }
                 if (this.clean) {
                     this.$emit('cancel')
@@ -364,9 +351,14 @@ export default {
                     // has been saved
                     this.makeClean()
 
+                    // emit to parent containers
                     this.$emit('submit', {
                         form: this.form,
                         data: results.data,
+
+                        // return created = true if we just created the resource
+                        created: !this.$route.params?.id,
+                        id: results.data.id,
                     })
                 }
             } catch (e) {
@@ -385,3 +377,16 @@ export default {
     },
 }
 </script>
+<style scoped>
+.z-border {
+    border-style: solid;
+    border-color: red;
+    border-width: 2px;
+}
+/* input[type=text] { */
+.danger {
+    background-color: rgb(255, 112, 112);
+    color: white;
+    font-weight: bold;
+}
+</style>

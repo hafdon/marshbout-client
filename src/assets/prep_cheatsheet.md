@@ -2,8 +2,4 @@
 **Spell save DC** = 8 + your proficiency bonus + your [spell ability ] modifier  
 **Spell attack modifier** = your proficiency bonus + your [spell ability] modifier
 
-- candles in bathroom
-- recycling can with liner
-- no sadie around jenny
-- apologize to flick for saying roleplaying took away from action
-  - always want to encourage this
+**INITIATIVE**: nat 1/20 doesn't matter. players decide or higher dex mod = first

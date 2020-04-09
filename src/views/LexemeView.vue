@@ -6,6 +6,9 @@
         :axios="axios"
         :controls="controls"
         :fields="fields"
+        routeName="Lexeme"
+        :initial-field-options="fieldOptions"
+        selectedURL="lexeme"
     ></ZView>
 </template>
 
@@ -28,13 +31,13 @@ export default {
             controls: {
                 form_input: [
                     { label: 'headword', type: 'text' },
-                    { label: 'etymology', type: 'text' },
                     { label: 'pronunciation', type: 'text' },
                     { label: 'language', type: 'text' },
                 ],
                 form_tags: [{ label: 'tags' }],
                 form_textarea: [
-                    { label: 'definitions', rows: 5, type: 'markdown' },
+                    { label: 'etymology', rows: 2 },
+                    { label: 'definitions', rows: 20, type: 'markdown' },
                 ],
             },
             axios: {
@@ -47,6 +50,7 @@ export default {
                 { key: 'tags', formatter: n => (n ? n.toString() : '') },
             ],
             tableFilter: '',
+            fieldOptions: ['headword', 'tags'],
         }
     },
 }

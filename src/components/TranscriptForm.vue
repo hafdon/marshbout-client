@@ -1,5 +1,10 @@
 <template>
-    <ZForm v-on="listeners" :controls="controls" :blank-form="form" v-bind="attrs"></ZForm>
+    <ZForm
+        v-on="listeners"
+        :controls="controls"
+        :blank-form="form"
+        v-bind="attrs"
+    ></ZForm>
 </template>
 
 <script>

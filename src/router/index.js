@@ -34,15 +34,15 @@ const routes = [
             import(/* webpackChunkName: "lexeme" */ '../views/LexemeView.vue'),
         props: true,
     },
-    // {
-    //     path: '/combat-tracker/:id?',
-    //     name: 'CombatTracker',
-    //     component: () =>
-    //         import(
-    //             /* webpackChunkName: "prep" */ '../views/CombatTrackerView.vue'
-    //         ),
-    //     props: true,
-    // },
+    {
+        path: '/combat-tracker/:id?',
+        name: 'CombatTracker',
+        component: () =>
+            import(
+                /* webpackChunkName: "prep" */ '../views/CombatTrackerView.vue'
+            ),
+        props: true,
+    },
     {
         path: '/recording/:id?',
         name: 'Recording',
@@ -79,6 +79,7 @@ const routes = [
 
     {
         path: '/npc/:id?',
+        name: 'Npc',
 
         props: true,
         // route level code-splitting
@@ -90,6 +91,7 @@ const routes = [
 
     {
         path: '/faction/:id?',
+        name: 'Faction',
 
         props: true,
         // route level code-splitting
@@ -103,6 +105,7 @@ const routes = [
 
     {
         path: '/description/:id?',
+        name: 'Description',
 
         props: true,
         // route level code-splitting
@@ -139,6 +142,7 @@ const routes = [
     },
     {
         path: '/location/:id?',
+        name: 'Location',
 
         props: true,
         // route level code-splitting
@@ -152,6 +156,7 @@ const routes = [
 
     {
         path: '/position/:id?',
+        name: 'Position',
 
         props: true,
         // route level code-splitting
@@ -165,6 +170,7 @@ const routes = [
 
     {
         path: '/clock/:id?',
+        name: 'Clock',
 
         props: true,
         // route level code-splitting

@@ -14,10 +14,10 @@
         ref="worklist-table"
     >
         <template v-slot:cell(title)="data">
-            <div class="text-left font-italic">{{data.item.title}}.</div>
+            <div class="text-left font-italic">{{ data.item.title }}.</div>
         </template>
         <template v-slot:cell(contributor)="data">
-            <div class="text-left">{{data.item.contributor}}</div>
+            <div class="text-left">{{ data.item.contributor }}</div>
         </template>
     </b-table>
 </template>
@@ -138,5 +138,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>

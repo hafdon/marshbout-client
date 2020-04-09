@@ -125,9 +125,16 @@
                     </template>
                     <b-card-body>
                         <ZTable
-                            :fields="table.fields"
+                            :initial-field-options="table.fieldOptions"
                             :axios="table.axios"
                             @row-selected="onRowSelected"
+                            class="m-0 p-0"
+                            ref="ztable"
+                            :fields="table.fields"
+                            sticky-header="750px"
+                            :no-border-collapse="true"
+                            :filter="tableFilter"
+                            :filters="filters"
                         ></ZTable>
                     </b-card-body>
                 </b-card>
@@ -154,10 +161,11 @@ export default {
                     method: 'get',
                 },
                 fields: [
-                    'session_id',
-                    'session_date',
+                    { key: 'session_id', sortable: true },
+                    { key: 'session_date', sortable: true },
                     { key: 'tags', formatter: n => String(n).toString() },
                 ],
+                fieldOptions: ['session_id', 'session_date', 'tags'],
             },
             formId: null,
         }
