@@ -31,7 +31,7 @@ export default {
             controls: {
                 form_textarea: [
                     { label: 'name' },
-                    { label: 'description', rows: 10 },
+                    { label: 'description', rows: 12, type: 'markdown' },
                 ],
                 form_tags: [{ label: 'tags' }],
                 form_input: [
