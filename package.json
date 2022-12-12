@@ -11,7 +11,7 @@
         "@vue/cli-upgrade": "^3.12.1",
         "axios": "^0.19.2",
         "bootstrap-vue": "^2.6.1",
-        "express": "^4.17.1",
+        "express": "^4.17.3",
         "html-loader": "^0.5.5",
         "lodash": "^4.17.15",
         "markdown-it-footnote": "^3.0.2",
